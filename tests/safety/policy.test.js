@@ -40,6 +40,15 @@ describe('checkAgentAllowed (architecture §14.3)', () => {
     expect(checkAgentAllowed('https://me.github.io/pagewise/practice-evil/', opts).allowed).toBe(false);
     expect(checkAgentAllowed('https://me.github.io/other/', opts).allowed).toBe(false);
   });
+
+  it('by default allows this repository\'s live practice site, and nothing else on GitHub Pages', () => {
+    const live = 'https://sreeramaiml.github.io/ai-browser/practice/';
+    expect(checkAgentAllowed(`${live}internship/?step=2`)).toMatchObject({ allowed: true, via: 'practice' });
+    expect(checkAgentAllowed('https://SreeramAIML.github.io/ai-browser/practice/shop/').allowed).toBe(true); // hosts are case-insensitive
+    expect(checkAgentAllowed('https://sreeramaiml.github.io/ai-browser/').allowed).toBe(false); // the landing page
+    expect(checkAgentAllowed('https://sreeramaiml.github.io/other-repo/practice/').allowed).toBe(false);
+    expect(checkAgentAllowed('http://sreeramaiml.github.io/ai-browser/practice/').allowed).toBe(false); // https only
+  });
 });
 
 describe('checkAction (architecture §14.1)', () => {

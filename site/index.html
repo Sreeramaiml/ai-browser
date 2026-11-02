@@ -6,7 +6,7 @@
   <title>Pagewise: your helper in the browser</title>
   <meta name="description" content="A Chrome side-panel assistant that summarises, explains and answers from the page you're on, and acts on it only one approved step at a time. Free, private, open source.">
   <!-- The GitHub repository, as "user/repo". Left empty, it's worked out from the github.io address. -->
-  <meta name="pagewise-repo" content="">
+  <meta name="pagewise-repo" content="Sreeramaiml/ai-browser">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="icon-32.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
@@ -173,12 +173,14 @@
     <div class="wrap foot-row">
       <span>Pagewise is open source under the MIT license.</span>
       <span>This page has no trackers, cookies or analytics.</span>
+      <a href="privacy.html">Privacy policy</a>
       <a data-gh="" href="#install">Source on GitHub</a>
     </div>
   </footer>
 
   <script>
-    // GitHub links: from <meta name="pagewise-repo">, or worked out from this page's github.io address.
+    // GitHub links: from <meta name="pagewise-repo">, or (in a fork that leaves it empty) worked out from
+    // the page's github.io address.
     // Elsewhere (a local preview), they stay pointed at the install section.
     (() => {
       const meta = document.querySelector('meta[name="pagewise-repo"]')?.content.trim();

@@ -37,10 +37,10 @@ export const DEV_FAULT_KEY = 'devFault';
 export const AGENT_DEFAULT_MAX_STEPS = 15;
 /**
  * The published practice site the agent may always run on, besides localhost (architecture §14.3).
- * Empty until it's on GitHub Pages; forks set their own (EC-PRC-03). Must end with '/'.
- * Example: 'https://<user>.github.io/pagewise/practice/'
+ * It's this repository's GitHub Pages site (.github/workflows/pages.yml). Forks set their own
+ * (EC-PRC-03). Lower-case host, and it must end with '/': only paths under it are allowed.
  */
-export const PRACTICE_SITE_URL = '';
+export const PRACTICE_SITE_URL = 'https://sreeramaiml.github.io/ai-browser/practice/';
 export const AGENT_HARD_MAX_STEPS = 30;
 /** Longest agent goal accepted (P3.5). */
 export const AGENT_GOAL_MAX_CHARS = 1_000;

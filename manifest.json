@@ -3,6 +3,7 @@
   "name": "Pagewise",
   "version": "0.1.0",
   "description": "A side-panel AI agent that reads, explains, sees, and acts — only with your approval.",
+  "homepage_url": "https://sreeramaiml.github.io/ai-browser/",
   "minimum_chrome_version": "116",
   "incognito": "not_allowed",
   "action": {

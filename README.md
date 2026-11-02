@@ -6,6 +6,8 @@ Pagewise summarises articles and YouTube videos in English or Hinglish, answers 
 
 It runs on your own free Gemini API key. Your key, profile and history stay on your computer, and there's no Pagewise server.
 
+**Website:** [sreeramaiml.github.io/ai-browser](https://sreeramaiml.github.io/ai-browser/) · **Practice site:** [/practice/](https://sreeramaiml.github.io/ai-browser/practice/) · **Privacy policy:** [/privacy.html](https://sreeramaiml.github.io/ai-browser/privacy.html)
+
 ![Pagewise summarising an article, then filling a practice form step by step](docs/demo.gif)
 
 ## Contents
@@ -92,6 +94,8 @@ Pagewise keeps you in control. These rules are enforced in code, not just reques
 
 **Your data stays on your computer.** Your key, profile, skills, settings and agent logs live in Chrome's local extension storage and are never synced. Page text and screenshots are sent only to the AI provider, and only for the feature you asked for. There is no analytics, no telemetry and no Pagewise server. **Settings → Clear all my data** deletes everything.
 
+The full [privacy policy](https://sreeramaiml.github.io/ai-browser/privacy.html) lists exactly what is stored and sent, and where.
+
 **Page content is treated as untrusted.** Text from web pages is clearly marked as data for the model, and instructions hidden inside it are ignored. Even if a page tricks the model, the worst it can do is *propose* a step, which still has to pass the safety rules and your approval.
 
 ## Permissions explained
@@ -114,7 +118,7 @@ Pagewise is not allowed in Incognito windows.
 
 The practice site has fake pages for trying the agent safely: a three-step internship application, a gadget shop, a club directory, and login, OTP, card and UPI pages that Pagewise must refuse. Nothing you type there is sent anywhere.
 
-- **Online:** it's published with this project's GitHub Pages site, under `/practice/`.
+- **Online:** https://sreeramaiml.github.io/ai-browser/practice/. The agent is allowed there out of the box.
 - **On your computer:** from a clone of this repository, run `npx serve practice` and open http://localhost:3000.
 
 ## Limitations

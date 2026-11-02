@@ -90,9 +90,13 @@ describe('landing page (architecture §20.4)', () => {
     expect(css).toContain('@media (prefers-color-scheme: dark)');
   });
 
-  it('works out the GitHub links from its github.io address when no repo is set', () => {
-    expect(site).toContain('<meta name="pagewise-repo" content="">');
+  it('links to this repository, and works it out from the github.io address in a fork', () => {
+    expect(site).toContain('<meta name="pagewise-repo" content="Sreeramaiml/ai-browser">');
     expect(site).toContain("location.hostname.endsWith('.github.io')");
+  });
+
+  it('links the privacy policy', () => {
+    expect(site).toContain('href="privacy.html"');
   });
 });
 
