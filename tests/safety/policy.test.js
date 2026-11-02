@@ -21,7 +21,7 @@ describe('checkAgentAllowed (architecture §14.3)', () => {
   });
 
   it('refuses the practice site opened as a file, saying how to serve it (EC-PRC-02)', () => {
-    const r = checkAgentAllowed('file:///Users/me/sahayak/practice/index.html');
+    const r = checkAgentAllowed('file:///Users/me/pagewise/practice/index.html');
     expect(r.allowed).toBe(false);
     expect(r.reason).toMatch(/npx serve practice/);
   });
@@ -35,9 +35,9 @@ describe('checkAgentAllowed (architecture §14.3)', () => {
   });
 
   it('allows the published practice site only under its path', () => {
-    const opts = { practiceSiteUrl: 'https://me.github.io/sahayak/practice/' };
-    expect(checkAgentAllowed('https://me.github.io/sahayak/practice/shop/', opts)).toMatchObject({ allowed: true, via: 'practice' });
-    expect(checkAgentAllowed('https://me.github.io/sahayak/practice-evil/', opts).allowed).toBe(false);
+    const opts = { practiceSiteUrl: 'https://me.github.io/pagewise/practice/' };
+    expect(checkAgentAllowed('https://me.github.io/pagewise/practice/shop/', opts)).toMatchObject({ allowed: true, via: 'practice' });
+    expect(checkAgentAllowed('https://me.github.io/pagewise/practice-evil/', opts).allowed).toBe(false);
     expect(checkAgentAllowed('https://me.github.io/other/', opts).allowed).toBe(false);
   });
 });
@@ -47,7 +47,7 @@ describe('checkAction (architecture §14.1)', () => {
 
   it('never types into a protected field', () => {
     const r = checkAction({ type: 'type', value: 'hunter2' }, field('Password', { inputType: 'password' }));
-    expect(r).toEqual({ allowed: false, reason: 'Sahayak never types into password fields.', requiresConfirm: false });
+    expect(r).toEqual({ allowed: false, reason: 'Pagewise never types into password fields.', requiresConfirm: false });
   });
 
   it('trusts a protected flag from the scan even if the label now looks harmless (fail closed)', () => {

@@ -47,7 +47,7 @@ export function createRpc({
           if (entry.timer !== null) cancel(entry.timer);
           entry.timer = schedule(() => {
             pending.delete(requestId);
-            reject(new Error('Sahayak took too long to respond. Please try again.'));
+            reject(new Error('Pagewise took too long to respond. Please try again.'));
           }, limit);
         }
       };
@@ -59,7 +59,7 @@ export function createRpc({
       if (!send(msg)) {
         cancel(entry.timer);
         pending.delete(requestId);
-        reject(new Error("Sahayak's background isn't connected. Please try again in a moment."));
+        reject(new Error("Pagewise's background isn't connected. Please try again in a moment."));
       }
     });
     return { requestId, done };

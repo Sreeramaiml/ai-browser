@@ -9,7 +9,7 @@
   for (const li of document.querySelectorAll('.steps li')) {
     if (li.dataset.step === step) li.setAttribute('aria-current', 'step');
   }
-  document.title = `Internship Application — Step ${step} of 3 — Sahayak practice`;
+  document.title = `Internship Application — Step ${step} of 3 — Pagewise practice`;
 
   const form = /** @type {HTMLFormElement} */ (document.getElementById(`step-${step}`));
 

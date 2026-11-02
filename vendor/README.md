@@ -1,6 +1,6 @@
 # Vendored libraries
 
-Third-party code is copied here (not loaded from a CDN) because MV3 extensions can't run remote code. Every file is pinned to an exact version. Check for security releases before each Sahayak release, especially DOMPurify.
+Third-party code is copied here (not loaded from a CDN) because MV3 extensions can't run remote code. Every file is pinned to an exact version. Check for security releases before each Pagewise release, especially DOMPurify.
 
 | File | Library | Version | Source (npm tarball path) | License | Used by |
 |------|---------|---------|---------------------------|---------|---------|

@@ -413,7 +413,7 @@ export const SkillSchema = Object.freeze({
 });
 const SKILL_FIELDS = Object.keys(SkillSchema);
 
-export const SKILL_FILE_FORMAT = 'sahayak-skills';
+export const SKILL_FILE_FORMAT = 'pagewise-skills';
 export const SKILL_FILE_VERSION = 1;
 export const SKILL_FILE_MAX_BYTES = 256 * 1024;
 export const SKILLS_MAX = 200;
@@ -465,7 +465,7 @@ export function validateSkill(raw, { newId, now }) {
 
   const unknown = unknownVariables(prompt);
   if (unknown.length) {
-    warnings.prompt = `Sahayak doesn't know ${unknown.map((v) => `{{${v}}}`).join(', ')}. ` +
+    warnings.prompt = `Pagewise doesn't know ${unknown.map((v) => `{{${v}}}`).join(', ')}. ` +
       (mode === 'agent' ? 'An agent skill stops with an error when it runs.' : 'It will be left blank.');
   }
 
@@ -504,10 +504,10 @@ export function buildSkillExport(skills, now) {
   return { format: SKILL_FILE_FORMAT, version: SKILL_FILE_VERSION, exportedAt: new Date(now).toISOString(), skills: skills.map(pickSkill) };
 }
 
-/** `sahayak-skills-20261102.json`, by the local date. @param {Date} date */
+/** `pagewise-skills-20261102.json`, by the local date. @param {Date} date */
 export function skillExportFileName(date) {
   const pad = (/** @type {number} */ n) => String(n).padStart(2, '0');
-  return `sahayak-skills-${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}.json`;
+  return `pagewise-skills-${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}.json`;
 }
 
 /** Keys an import never keeps, at any depth (prototype-pollution guard, EC-SKL-09). */
@@ -521,7 +521,7 @@ const POISON_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
  * @returns {{ ok: true, skills: Skill[], skipped: number, warnings: string[] } | { ok: false, error: string }}
  */
 export function parseSkillFile(text, opts) {
-  const NOT_A_FILE = "This isn't a Sahayak skills file.";
+  const NOT_A_FILE = "This isn't a Pagewise skills file.";
   if (typeof text !== 'string') return { ok: false, error: NOT_A_FILE };
   if (new TextEncoder().encode(text).length > SKILL_FILE_MAX_BYTES) {
     return { ok: false, error: `This file is too big. A skills file can be at most ${SKILL_FILE_MAX_BYTES / 1024} KB.` };
@@ -537,7 +537,7 @@ export function parseSkillFile(text, opts) {
   const d = /** @type {Record<string, unknown>} */ (data);
   if (d.format !== SKILL_FILE_FORMAT) return { ok: false, error: NOT_A_FILE };
   if (typeof d.version === 'number' && d.version > SKILL_FILE_VERSION) {
-    return { ok: false, error: 'This file was made with a newer Sahayak. Update Sahayak, then import it again.' };
+    return { ok: false, error: 'This file was made with a newer Pagewise. Update Pagewise, then import it again.' };
   }
   if (d.version !== SKILL_FILE_VERSION) return { ok: false, error: "This skills file's version isn't supported." };
   if (!Array.isArray(d.skills)) return { ok: false, error: NOT_A_FILE };

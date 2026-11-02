@@ -57,7 +57,7 @@ function pathOf(url) {
 export function taskToMarkdown(task) {
   const cell = (/** @type {string} */ s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
   const lines = [
-    `# Sahayak task: ${task.goal.split('\n')[0]}`,
+    `# Pagewise task: ${task.goal.split('\n')[0]}`,
     '',
     `- Status: ${STATUS_LABEL[task.status] ?? task.status}${task.message ? ` — ${task.message}` : ''}`,
     `- Started: ${new Date(task.createdAt).toISOString()}`,
@@ -105,7 +105,7 @@ export function downloadText(filename, text, type) {
 }
 
 /** @param {AgentTask|TaskSummary} task @param {string} ext */
-const fileName = (task, ext) => `sahayak-task-${new Date(task.createdAt).toISOString().slice(0, 16).replace(/[:T]/g, '-')}.${ext}`;
+const fileName = (task, ext) => `pagewise-task-${new Date(task.createdAt).toISOString().slice(0, 16).replace(/[:T]/g, '-')}.${ext}`;
 
 /** @param {AgentTask} task */
 export function exportMarkdown(task) {

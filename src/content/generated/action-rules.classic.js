@@ -90,13 +90,13 @@ function classifyAction(el) {
   }
   if (isButtonLike(el) || isLink(el)) {
     if (PAYMENT_RE.test(label) || (isLink(el) && PAY_PATH_RE.test(String(el.href ?? '')))) {
-      return { kind: 'blocked', reason: 'It would pay or place an order. Sahayak never does that for you.' };
+      return { kind: 'blocked', reason: 'It would pay or place an order. Pagewise never does that for you.' };
     }
-    if (LOGIN_RE.test(label)) return { kind: 'blocked', reason: 'It would log in. Sahayak never logs in for you.' };
+    if (LOGIN_RE.test(label)) return { kind: 'blocked', reason: 'It would log in. Pagewise never logs in for you.' };
   }
   if (isConsequential(el)) return { kind: 'consequential', reason: 'It submits, sends, pays or deletes something.' };
   return { kind: 'normal', reason: null };
 }
 
-(globalThis.__sahayakShared ??= {}).actionRules = { classifyAction, isConsequential };
+(globalThis.__pagewiseShared ??= {}).actionRules = { classifyAction, isConsequential };
 })();

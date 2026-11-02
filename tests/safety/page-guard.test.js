@@ -20,7 +20,7 @@ describe('page guard (every feature entry point)', () => {
 
   it('refuses a bank page with the friendly copy', async () => {
     const err = await guardFor({ url: 'https://netbanking.hdfcbank.com/' }).assert(7, 'read').catch((e) => e);
-    expect(err).toMatchObject({ code: 'PAGE_BLOCKED', message: 'Sahayak is switched off on payment and banking pages to keep your money safe.' });
+    expect(err).toMatchObject({ code: 'PAGE_BLOCKED', message: 'Pagewise is switched off on payment and banking pages to keep your money safe.' });
     expect(err.toPayload()).toMatchObject({ tier: 3, retryable: false });
   });
 

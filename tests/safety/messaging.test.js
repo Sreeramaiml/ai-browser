@@ -1,10 +1,10 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { afterEach, describe, it, expect, vi } from 'vitest';
 
-const ID = 'sahayak-extension-id';
+const ID = 'pagewise-extension-id';
 afterEach(() => {
   delete globalThis.chrome;
-  delete globalThis.__sahayak;
+  delete globalThis.__pagewise;
   vi.resetModules();
 });
 
@@ -12,10 +12,10 @@ describe('messaging hardening (P4.3 step 9)', () => {
   it('content scripts answer only our own extension (EC-INJ-07)', async () => {
     let listener;
     globalThis.chrome = { runtime: { id: ID, onMessage: { addListener: (fn) => { listener = fn; } } } };
-    globalThis.__sahayak = { handlers: {} };
+    globalThis.__pagewise = { handlers: {} };
     await import('../../src/content/bootstrap.js');
     const calls = [];
-    globalThis.__sahayak.handlers.CS_TEST = (p) => { calls.push(p); return 'ok'; };
+    globalThis.__pagewise.handlers.CS_TEST = (p) => { calls.push(p); return 'ok'; };
 
     expect(listener({ type: 'CS_TEST', payload: 1 }, { id: 'some-other-extension' }, () => {})).toBe(false);
     expect(listener({ type: 'CS_TEST', payload: 2 }, {}, () => {})).toBe(false);
@@ -34,7 +34,7 @@ describe('messaging hardening (P4.3 step 9)', () => {
     expect(sent).toEqual([[7, { type: 'CS_SCAN', payload: { x: 1 } }, { frameId: 0 }]]);
   });
 
-  it('the service worker accepts ports only from Sahayak\'s own pages', async () => {
+  it('the service worker accepts ports only from Pagewise\'s own pages', async () => {
     let onConnect;
     globalThis.chrome = {
       runtime: {

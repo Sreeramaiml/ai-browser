@@ -1,7 +1,7 @@
 // Builds the release ZIP (architecture §20.2): copies only what the extension needs, refuses to
 // ship anything key-shaped, checks the versions agree, and writes a reproducible ZIP.
 //
-//   node scripts/package.mjs                    dist/sahayak-v<version>/ and dist/sahayak-v<version>.zip
+//   node scripts/package.mjs                    dist/pagewise-v<version>/ and dist/pagewise-v<version>.zip
 //   node scripts/package.mjs --check            every check, nothing written (CI)
 //   node scripts/package.mjs --tag v1.0.0       also check the tag (the release workflow passes it)
 //   node scripts/package.mjs --notes v1.0.0     print that version's CHANGELOG.md section (release notes)
@@ -321,18 +321,18 @@ function main(argv) {
   const { label, entries, zip } = buildPackage({ tag: value('--tag') });
   const kb = (zip.length / 1024).toFixed(0);
   if (check) {
-    console.log(`ok: ${entries.length} files would ship as sahayak-${label}.zip (${kb} KB). Nothing written (--check).`);
+    console.log(`ok: ${entries.length} files would ship as pagewise-${label}.zip (${kb} KB). Nothing written (--check).`);
     return;
   }
   const dist = join(ROOT, 'dist');
-  const folder = join(dist, `sahayak-${label}`);
+  const folder = join(dist, `pagewise-${label}`);
   rmSync(folder, { recursive: true, force: true });
   for (const { name, data } of entries) {
     mkdirSync(dirname(join(folder, name)), { recursive: true });
     writeFileSync(join(folder, name), data);
   }
-  writeFileSync(join(dist, `sahayak-${label}.zip`), zip);
-  console.log(`wrote dist/sahayak-${label}/ and dist/sahayak-${label}.zip: ${entries.length} files, ${kb} KB`);
+  writeFileSync(join(dist, `pagewise-${label}.zip`), zip);
+  console.log(`wrote dist/pagewise-${label}/ and dist/pagewise-${label}.zip: ${entries.length} files, ${kb} KB`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href) { // real paths: see sync-classic.mjs

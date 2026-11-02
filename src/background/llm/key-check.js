@@ -1,5 +1,5 @@
 // @ts-check
-// "Test key" for Gemini: one free GET /models call. It proves the key works and that Sahayak's
+// "Test key" for Gemini: one free GET /models call. It proves the key works and that Pagewise's
 // configured models are available to it. Results carry user-facing copy and never the key.
 
 import { GEMINI_API_BASE, KEY_TEST_TIMEOUT_MS } from '../../shared/config.js';
@@ -22,7 +22,7 @@ export function geminiHeaders(key) {
  * Turn the /models response into a result (pure, for tests).
  * @param {number} status
  * @param {any} body parsed JSON, or null if the body wasn't JSON
- * @param {string[]} requiredModels model IDs Sahayak is configured to use
+ * @param {string[]} requiredModels model IDs Pagewise is configured to use
  * @returns {KeyCheckResult}
  */
 export function interpretModelsResponse(status, body, requiredModels) {
@@ -33,7 +33,7 @@ export function interpretModelsResponse(status, body, requiredModels) {
       ? {
           ok: true,
           message: '✓ Key works.',
-          warning: `But ${missing.join(' and ')} ${missing.length > 1 ? "aren't" : "isn't"} available to this key, so answers will fail. Sahayak's model settings need updating.`
+          warning: `But ${missing.join(' and ')} ${missing.length > 1 ? "aren't" : "isn't"} available to this key, so answers will fail. Pagewise's model settings need updating.`
         }
       : { ok: true, message: '✓ Key works.' };
   }

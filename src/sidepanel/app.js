@@ -24,25 +24,25 @@ const TAB_VIEWS = /** @type {ViewId[]} */ (['read', 'chat', 'see', 'agent', 'ski
 /** @type {Record<string, { title: string, detail: string, action?: string }>} */
 const RESTRICTED_COPY = {
   browser: {
-    title: "Sahayak can't read this kind of page",
-    detail: "Chrome doesn't let extensions read its own pages, like Settings or the New Tab page. Open a website to use Sahayak."
+    title: "Pagewise can't read this kind of page",
+    detail: "Chrome doesn't let extensions read its own pages, like Settings or the New Tab page. Open a website to use Pagewise."
   },
   webstore: {
-    title: "Sahayak can't read this kind of page",
+    title: "Pagewise can't read this kind of page",
     detail: 'The Chrome Web Store is protected from all extensions.'
   },
   file: {
-    title: "Sahayak can't read local files yet",
-    detail: 'Turn on "Allow access to file URLs" for Sahayak on the extensions page, then reload this file.',
+    title: "Pagewise can't read local files yet",
+    detail: 'Turn on "Allow access to file URLs" for Pagewise on the extensions page, then reload this file.',
     action: 'Open extension settings'
   },
   pdf: {
-    title: "Sahayak can't read PDFs yet",
+    title: "Pagewise can't read PDFs yet",
     detail: "PDFs open in Chrome's built-in viewer, which extensions can't read. You can still ask about what's on screen in the See tab."
   },
   none: {
     title: 'No page selected',
-    detail: 'Switch to a browser tab with a website to use Sahayak.'
+    detail: 'Switch to a browser tab with a website to use Pagewise.'
   }
 };
 
@@ -176,9 +176,9 @@ store.subscribe((s) => s.connection, (status) => {
   // Reconnecting after normal worker sleep is silent (EC-PNL-12); only persistent problems show.
   banner.hidden = status !== 'failed' && status !== 'invalidated';
   if (status === 'failed') {
-    $('conn-banner-text').textContent = "Sahayak's background stopped responding. Try again, or reload Sahayak from the extensions page.";
+    $('conn-banner-text').textContent = "Pagewise's background stopped responding. Try again, or reload Pagewise from the extensions page.";
   } else if (status === 'invalidated') {
-    $('conn-banner-text').textContent = 'Sahayak was updated. Close and reopen this panel to continue.';
+    $('conn-banner-text').textContent = 'Pagewise was updated. Close and reopen this panel to continue.';
   }
   // Chrome APIs are gone once the extension context is invalidated, so hide the actions (EC-INS-06).
   $('conn-retry').hidden = status !== 'failed';
@@ -211,7 +211,7 @@ function handleMessage(msg, windowId) {
       agentView?.onAgentState(msg.payload);
       break;
     case ToPanel.ERROR:
-      console.warn('[Sahayak] error from background', msg.payload?.code);
+      console.warn('[Pagewise] error from background', msg.payload?.code);
       break;
     default:
       break;
@@ -266,7 +266,7 @@ async function boot() {
 }
 
 window.addEventListener('unhandledrejection', (event) => {
-  console.error('[Sahayak] unhandled rejection in panel', event.reason);
+  console.error('[Pagewise] unhandled rejection in panel', event.reason);
 });
 
 boot();

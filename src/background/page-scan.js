@@ -35,12 +35,12 @@ export function createPageScan({ getTab, prepare, send, badgeTabs, highlightTabs
     if (typeof tabId !== 'number') throw new FeatureError('PAGE_RESTRICTED', 'Open a web page first.');
     const tab = await getTab(tabId);
     if (describePageAccess(tab.url || tab.pendingUrl, { fileAccessAllowed: true }).restricted) {
-      throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't read this kind of page.");
+      throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't read this kind of page.");
     }
     try {
       await prepare(tabId);
     } catch {
-      throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't read this page.");
+      throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't read this page.");
     }
   }
 

@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Sahayak",
+  "name": "Pagewise",
   "version": "0.1.0",
   "description": "A side-panel AI agent that reads, explains, sees, and acts — only with your approval.",
   "minimum_chrome_version": "116",
   "incognito": "not_allowed",
   "action": {
-    "default_title": "Open Sahayak",
+    "default_title": "Open Pagewise",
     "default_icon": {
       "16": "assets/icons/16.png",
       "32": "assets/icons/32.png",
@@ -22,7 +22,7 @@
       "suggested_key": {
         "default": "Alt+Shift+X"
       },
-      "description": "Stop the Sahayak agent"
+      "description": "Stop the Pagewise agent"
     }
   },
   "background": {

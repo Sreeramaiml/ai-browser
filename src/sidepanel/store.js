@@ -32,7 +32,7 @@ export function createStore(initial) {
         try {
           listener();
         } catch (err) {
-          console.error('[Sahayak] store subscriber failed', err);
+          console.error('[Pagewise] store subscriber failed', err);
         }
       }
     },

@@ -1,5 +1,5 @@
 // @ts-check
-// Agent tab. P3.5: give Sahayak a task and approve, skip or stop each step it proposes.
+// Agent tab. P3.5: give Pagewise a task and approve, skip or stop each step it proposes.
 // P3.6: step limit and dry run options, Esc stops the task, and the task's timeline.
 // P4.1: "Use my profile" lets the agent fill fields with {{profile.*}} values.
 // P3.4: "Find it for me" points at the one element that answers a question, without acting.
@@ -16,17 +16,17 @@ const TEMPLATE = /* html */ `
   <div class="agent">
     <div class="agent-intro">
       <h2>Agent</h2>
-      <p class="hint">Give Sahayak a task. It proposes one step at a time, and nothing happens on the page until
+      <p class="hint">Give Pagewise a task. It proposes one step at a time, and nothing happens on the page until
         you approve it. Tasks run on the practice site and on sites you've added as your own.</p>
     </div>
 
     <section class="task" aria-labelledby="task-heading">
       <h3 id="task-heading">Do a task</h3>
       <form class="task-form" data-ref="taskForm">
-        <textarea data-ref="goal" rows="3" maxlength="${AGENT_GOAL_MAX_CHARS}" aria-label="What should Sahayak do on this page?"
+        <textarea data-ref="goal" rows="3" maxlength="${AGENT_GOAL_MAX_CHARS}" aria-label="What should Pagewise do on this page?"
                   placeholder="e.g. Fill this form from my profile, and stop before submitting."></textarea>
         <div class="row task-form-bar">
-          <label class="check" title="Sahayak sees only your profile's field names. You see each value on the step before approving it.">
+          <label class="check" title="Pagewise sees only your profile's field names. You see each value on the step before approving it.">
             <input type="checkbox" data-ref="useProfile" /> Use my profile</label>
           <label class="check"><input type="checkbox" data-ref="dryRun" /> Dry run (only highlight each step)</label>
           <label class="check">Max steps
@@ -42,7 +42,7 @@ const TEMPLATE = /* html */ `
 
     <section class="find" aria-labelledby="find-heading">
       <h3 id="find-heading">Find it for me</h3>
-      <p class="hint">Sahayak points at it on the page. It won't click or type anything.</p>
+      <p class="hint">Pagewise points at it on the page. It won't click or type anything.</p>
       <form class="find-form" data-ref="findForm">
         <input type="text" data-ref="findInput" maxlength="${FIND_MAX_QUERY_CHARS}" autocomplete="off"
                placeholder="e.g. Where do I upload my resume?" aria-label="What are you looking for on this page?" />
@@ -51,7 +51,7 @@ const TEMPLATE = /* html */ `
       <div data-ref="findOut" aria-live="polite"></div>
     </section>
 
-    <h3>How Sahayak reads this page</h3>
+    <h3>How Pagewise reads this page</h3>
     <p class="hint">Every button and field gets a number, and 🔒 marks fields it will never type into.</p>
     <div class="row">
       <button type="button" class="btn btn-secondary" data-ref="badges" aria-pressed="false">Show numbers</button>
@@ -290,7 +290,7 @@ export function mountAgentView(root, { store, client, openSettings }) {
     }
     card.append(head, para('find-reason', result.reason));
     if (result.confidence === 'low') card.append(para('note', "I'm not sure about this one. Check it's the right thing before using it."));
-    if (result.protected) card.append(para('note', '🔒 You fill this in yourself. Sahayak never types into it.'));
+    if (result.protected) card.append(para('note', '🔒 You fill this in yourself. Pagewise never types into it.'));
     const status = para('note', '');
     status.setAttribute('role', 'status');
     /** @param {string} text */

@@ -1,6 +1,6 @@
 # Screenshots and demo: capture guide
 
-The README and the landing page use the images listed below. They have to be real captures of Sahayak running in Chrome, so they're taken by hand. Until a file exists, the README shows a broken image in its place and the landing page leaves that screenshot out.
+The README and the landing page use the images listed below. They have to be real captures of Pagewise running in Chrome, so they're taken by hand. Until a file exists, the README shows a broken image in its place and the landing page leaves that screenshot out.
 
 Save each image here, in `docs/screenshots/`, with exactly the file name given. The demo GIF goes in `docs/demo.gif`. The Pages workflow copies them all to the published site.
 
@@ -26,12 +26,12 @@ Save each image here, in `docs/screenshots/`, with exactly the file name given. 
 | `read-summary-en.png` | Read tab on a news or Wikipedia article | The summary card in English: TL;DR, the five key points and next steps, with the "via Gemini" chip. |
 | `read-summary-hinglish.png` | Same page | The same card after switching the header to **Hinglish**. |
 | `chat-not-found.png` | Chat tab on the same article | Two or three questions answered from the page, then one the page doesn't cover, with the "not found on this page" answer. |
-| `context-menu-draft.png` | Chat tab, after right-click → **Sahayak → Draft a reply** on a short message | The draft with its **Shorter**, **More formal** and **Reply as** chips. If you can, show the right-click menu open on the page beside it. |
+| `context-menu-draft.png` | Chat tab, after right-click → **Pagewise → Draft a reply** on a short message | The draft with its **Shorter**, **More formal** and **Reply as** chips. If you can, show the right-click menu open on the page beside it. |
 | `see-crop.png` | See tab on a page with a chart | The captured screen with a crop box drawn around the chart, and the question and answer below. |
 | `agent-badges.png` | Agent tab on the practice internship form | **Show numbers** on, so the numbered badges are visible on the page, with the action map open in the panel. |
 | `agent-confirm.png` | Agent tab, internship form step 3 | The approval card for **Submit application**, after pressing Approve, showing the second confirmation. Use a goal with "Use my profile" on, so earlier steps in the log show values "from your profile". |
 | `agent-log.png` | Settings → Agent logs | A finished task's timeline: approved, skipped and blocked steps, with **Export JSON** and **Export Markdown** visible. |
-| `safety-blocked.png` | Any page in Sahayak's bank list, such as a bank's public net-banking login page, without logging in | The 🔴 badge in the header and the Read tab's "switched off on payment and banking pages" message. |
+| `safety-blocked.png` | Any page in Pagewise's bank list, such as a bank's public net-banking login page, without logging in | The 🔴 badge in the header and the Read tab's "switched off on payment and banking pages" message. |
 | `skills-list.png` | Skills tab | The four starter skills plus one of your own, such as "Make flashcards from this page". |
 
 ## Demo GIF (`docs/demo.gif`)

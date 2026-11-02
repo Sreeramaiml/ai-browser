@@ -5,7 +5,7 @@
 // (src/content/generated/*.classic.js), which are injected before this file.
 
 (() => {
-  const ns = /** @type {any} */ (globalThis).__sahayak;
+  const ns = /** @type {any} */ (globalThis).__pagewise;
   if (ns.scanner) return; // already injected: keep the existing snapshot and observer
 
   const SELECTOR = [
@@ -251,7 +251,7 @@
     const getRect = deps.getRect ?? ((el) => el.getBoundingClientRect());
     const viewport = deps.viewport ?? (() => ({ width: innerWidth, height: innerHeight, scrollX }));
     const elementFromPoint = deps.elementFromPoint ?? ((x, y) => document.elementFromPoint(x, y));
-    const rules = /** @type {any} */ (globalThis).__sahayakShared ?? {};
+    const rules = /** @type {any} */ (globalThis).__pagewiseShared ?? {};
 
     /** @type {null | { id: string, refs: Map<number, WeakRef<Element>>, fingerprints: Map<number, string>, url: string }} */
     let snapshot = null;
@@ -449,7 +449,7 @@
 
     function clearMarks() {
       if (!snapshot) return;
-      for (const ref of snapshot.refs.values()) ref.deref()?.removeAttribute('data-sahayak-id');
+      for (const ref of snapshot.refs.values()) ref.deref()?.removeAttribute('data-pagewise-id');
     }
 
     return {
@@ -462,7 +462,7 @@
         for (const { el, d } of described) {
           snapshot.refs.set(d.id, new WeakRef(el));
           snapshot.fingerprints.set(d.id, d.fingerprint);
-          el.setAttribute('data-sahayak-id', String(d.id));
+          el.setAttribute('data-pagewise-id', String(d.id));
         }
         dirty = false;
         const framesNotScanned = [...document.querySelectorAll('iframe')].filter((f) => !isHidden(f, new Map())).length;
@@ -525,7 +525,7 @@
       markDirty() {
         dirty = true;
       },
-      /** Remove data-sahayak-id from the page (EC-SCN-23). */
+      /** Remove data-pagewise-id from the page (EC-SCN-23). */
       clearMarks
     };
   }
@@ -535,10 +535,10 @@
   ns.scanner = scanner;
 
   // Significant DOM changes make the snapshot stale, so the next observe rescans (§11.3).
-  // Our own data-sahayak-id attribute and the overlay host are ignored.
+  // Our own data-pagewise-id attribute and the overlay host are ignored.
   new MutationObserver((records) => {
     for (const r of records) {
-      if (r.type === 'childList' && [...r.addedNodes, ...r.removedNodes].every((n) => /** @type {Element} */ (n).id === 'sahayak-overlay')) continue;
+      if (r.type === 'childList' && [...r.addedNodes, ...r.removedNodes].every((n) => /** @type {Element} */ (n).id === 'pagewise-overlay')) continue;
       scanner.markDirty();
       return;
     }

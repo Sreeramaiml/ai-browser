@@ -23,7 +23,7 @@
 
   const pages = Math.ceil(CLUBS.length / PAGE_SIZE);
   const page = Math.min(pages, Math.max(1, Number(new URLSearchParams(location.search).get('page')) || 1));
-  document.title = `College Club Directory — Page ${page} of ${pages} — Sahayak practice`;
+  document.title = `College Club Directory — Page ${page} of ${pages} — Pagewise practice`;
 
   document.getElementById('clubs').replaceChildren(...CLUBS.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(([club, person, email]) => {
     const tr = document.createElement('tr');

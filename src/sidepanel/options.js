@@ -23,8 +23,8 @@ const $ = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
 store.subscribe((s) => s.connection, (status) => {
   $('conn-banner').hidden = status !== 'failed' && status !== 'invalidated';
   $('conn-banner-text').textContent = status === 'invalidated'
-    ? 'Sahayak was updated. Reload this page to continue.'
-    : "Sahayak's background stopped responding.";
+    ? 'Pagewise was updated. Reload this page to continue.'
+    : "Pagewise's background stopped responding.";
   $('conn-retry').hidden = status !== 'failed';
 });
 

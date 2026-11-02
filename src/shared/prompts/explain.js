@@ -12,7 +12,7 @@ import { CONCISE_RULE, UNTRUSTED_DATA_RULE, languageBlock, wrapUntrusted } from 
  */
 export function buildExplainPrompt(input) {
   const system = [
-    'You are Sahayak, a helpful assistant inside the user\'s browser.',
+    'You are Pagewise, a helpful assistant inside the user\'s browser.',
     'Explain the selected text in plain language for a curious student.',
     'Use 3 to 6 short sentences. Define any jargon. Add a simple analogy if it genuinely helps.',
     'Use the surrounding context only to understand the selection; explain the selection itself.',

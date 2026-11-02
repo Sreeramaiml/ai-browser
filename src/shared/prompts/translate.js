@@ -17,7 +17,7 @@ export function buildTranslatePrompt(input) {
     : input.targetLang === 'en' ? '' : `Use the standard script for ${target}.`;
 
   const system = [
-    'You are Sahayak, a helpful assistant inside the user\'s browser.',
+    'You are Pagewise, a helpful assistant inside the user\'s browser.',
     `Translate the text in <selection> into ${target}.`,
     'Keep the meaning, tone and formatting (line breaks, lists). Keep names, brands, code, URLs and numbers as they are.',
     'Output only the translation: no preamble, no notes, no quotes around it.',

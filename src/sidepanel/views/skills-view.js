@@ -305,7 +305,7 @@ export function mountSkillsView(root, { store, client, runAnswer, onAgentState, 
     }
     ref('promptCount').textContent = `${promptInput.value.length.toLocaleString()} / ${SKILL_PROMPT_MAX.toLocaleString()}`;
     const unknown = unknownVariables(promptInput.value);
-    showMessages({}, unknown.length ? { prompt: `Sahayak doesn't know ${unknown.map((v) => `{{${v}}}`).join(', ')}.` } : {});
+    showMessages({}, unknown.length ? { prompt: `Pagewise doesn't know ${unknown.map((v) => `{{${v}}}`).join(', ')}.` } : {});
   }
 
   function syncModeHint() {

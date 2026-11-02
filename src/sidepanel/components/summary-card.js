@@ -100,8 +100,8 @@ export function createSummaryCard(result, { onRefresh, onSeek, onSwitchLanguage 
   }
 
   const notes = [];
-  if (result.source === 'visible') notes.push("This doesn't look like an article, so Sahayak summarised the visible content.");
-  if (result.truncated) notes.push('This page is long; Sahayak summarised its beginning and end.');
+  if (result.source === 'visible') notes.push("This doesn't look like an article, so Pagewise summarised the visible content.");
+  if (result.truncated) notes.push('This page is long; Pagewise summarised its beginning and end.');
   if (result.stillLoading) notes.push('The page was still loading, so the summary may miss some content.');
   for (const n of notes) card.append(el('p', 'note', n));
 

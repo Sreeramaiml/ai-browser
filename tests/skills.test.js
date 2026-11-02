@@ -76,7 +76,7 @@ describe('skills file: export (EC-SKL-16)', () => {
     const leaky = { ...skill(), profile: { name: 'Asha' }, geminiKey: 'AIza-secret', settings: {} };
     const out = buildSkillExport([leaky], Date.UTC(2026, 10, 2, 10));
     expect(Object.keys(out)).toEqual(Object.keys(SkillFileSchema));
-    expect(out).toMatchObject({ format: 'sahayak-skills', version: 1, exportedAt: '2026-11-02T10:00:00.000Z' });
+    expect(out).toMatchObject({ format: 'pagewise-skills', version: 1, exportedAt: '2026-11-02T10:00:00.000Z' });
     expect(Object.keys(out.skills[0])).toEqual(Object.keys(SkillSchema));
     const text = JSON.stringify(out);
     expect(text).not.toContain('Asha');
@@ -84,7 +84,7 @@ describe('skills file: export (EC-SKL-16)', () => {
   });
 
   it('names the file by local date', () => {
-    expect(skillExportFileName(new Date(2026, 0, 5, 23, 59))).toBe('sahayak-skills-20260105.json');
+    expect(skillExportFileName(new Date(2026, 0, 5, 23, 59))).toBe('pagewise-skills-20260105.json');
   });
 
   it('round-trips: export → import gives the same skills', () => {
@@ -99,7 +99,7 @@ describe('skills file: export (EC-SKL-16)', () => {
 
 describe('skills file: import (architecture §13.2)', () => {
   it('rejects a file that is not JSON, e.g. an image renamed to .json (EC-SKL-07)', () => {
-    expect(parseSkillFile('\x89PNG\r\n\x1a\n…', OPTS)).toEqual({ ok: false, error: "This isn't a Sahayak skills file." });
+    expect(parseSkillFile('\x89PNG\r\n\x1a\n…', OPTS)).toEqual({ ok: false, error: "This isn't a Pagewise skills file." });
     expect(parseSkillFile('[1,2]', OPTS).ok).toBe(false);
     expect(parseSkillFile('{"skills": []}', OPTS).ok).toBe(false);
   });
@@ -107,7 +107,7 @@ describe('skills file: import (architecture §13.2)', () => {
   it('rejects a wrong format, a missing version, and a newer version with its own message (EC-SKL-08)', () => {
     expect(parseSkillFile(file([skill()], { format: 'other' }), OPTS).ok).toBe(false);
     expect(parseSkillFile(file([skill()], { version: undefined }), OPTS).error).toMatch(/version/);
-    expect(parseSkillFile(file([skill()], { version: 2 }), OPTS).error).toMatch(/newer Sahayak/);
+    expect(parseSkillFile(file([skill()], { version: 2 }), OPTS).error).toMatch(/newer Pagewise/);
   });
 
   it('rejects a file over 256 KB or with more than 200 skills (EC-SKL-11)', () => {
@@ -118,7 +118,7 @@ describe('skills file: import (architecture §13.2)', () => {
   });
 
   it('strips unknown fields and never lets __proto__ or constructor through (EC-SKL-09)', () => {
-    const text = '{"format":"sahayak-skills","version":1,"__proto__":{"polluted":true},"skills":[' +
+    const text = '{"format":"pagewise-skills","version":1,"__proto__":{"polluted":true},"skills":[' +
       '{"name":"A","mode":"answer","prompt":"p","script":"alert(1)","onload":"x","__proto__":{"admin":true},"constructor":{"prototype":{"x":1}}}]}';
     const parsed = parseSkillFile(text, OPTS);
     expect(parsed.ok).toBe(true);

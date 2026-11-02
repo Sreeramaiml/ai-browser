@@ -4,7 +4,7 @@
 // substring, so "hdfcbank.com.example.net" and "nothdfcbank.com" don't match "hdfcbank.com"
 // (EC-TIR-01, EC-TIR-02). Imported by the service worker and the panel only.
 
-/** Tier 3: banking, payments, UPI and checkout. Sahayak never reads or acts here. */
+/** Tier 3: banking, payments, UPI and checkout. Pagewise never reads or acts here. */
 export const FINANCIAL_DOMAINS = Object.freeze([
   // Indian public-sector banks
   'onlinesbi.sbi', 'sbi.co.in', 'onlinesbi.com', 'bankofbaroda.in', 'bobibanking.com', 'pnbindia.in', 'netpnb.com',

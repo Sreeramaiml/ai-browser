@@ -121,7 +121,7 @@ export function judgeStep({ action, element, resolvedValue, fromProfile, pageOtp
   const verdict = checkAction({ type: action.type, value: resolvedValue ?? action.value ?? '' }, target, { pageOtp, pageCard, fromProfile });
   if (!verdict.allowed) return verdict;
   if (element?.blocked) {
-    return { allowed: false, reason: "Sahayak won't click this. It would submit a form with a password, OTP or card field.", requiresConfirm: false };
+    return { allowed: false, reason: "Pagewise won't click this. It would submit a form with a password, OTP or card field.", requiresConfirm: false };
   }
   if (action.type === 'click' && element?.consequential) {
     return { allowed: true, reason: verdict.reason ?? 'It submits, sends, pays or deletes something.', requiresConfirm: true };
@@ -420,7 +420,7 @@ export function transition(task, event, now) {
     case 'RECOVER': {
       // The worker slept or the call hung mid-step (P3.6).
       if (task.status === 'PAUSED' && task.paused?.from === 'EXECUTING' && pending) {
-        const why = 'Sahayak restarted during this step, so it may or may not have run.';
+        const why = 'Pagewise restarted during this step, so it may or may not have run.';
         return {
           task: next({
             pending: null, paused: { ...task.paused, from: 'OBSERVING' },
@@ -431,7 +431,7 @@ export function transition(task, event, now) {
       }
       if (task.status === 'EXECUTING' && pending) {
         // Never run a step twice: we can't tell whether it ran, so ask.
-        const why = 'Sahayak restarted during this step, so it may or may not have run.';
+        const why = 'Pagewise restarted during this step, so it may or may not have run.';
         return {
           task: next({
             status: 'ERROR', message: `${why} Check the page, then press Try again or Skip.`,
@@ -442,7 +442,7 @@ export function transition(task, event, now) {
       }
       if (task.status !== 'OBSERVING' && task.status !== 'THINKING') return ignore;
       if ((task.recoveries ?? 0) >= 1) {
-        return { task: next({ status: 'ERROR', message: 'Sahayak lost track of this step twice. Press Try again to look at the page again.' }), effects: [] };
+        return { task: next({ status: 'ERROR', message: 'Pagewise lost track of this step twice. Press Try again to look at the page again.' }), effects: [] };
       }
       return observeAgain({ recoveries: (task.recoveries ?? 0) + 1 });
     }
@@ -596,7 +596,7 @@ export function createAgentRunner({
       }
       case 'EXECUTE': {
         // The only path to CS_EXECUTE, and only ever after an approval (P3.5 verify step).
-        console.info('[Sahayak] CS_EXECUTE', { taskId: id, stepId: effect.step.stepId, action: effect.step.action.type });
+        console.info('[Pagewise] CS_EXECUTE', { taskId: id, stepId: effect.step.stepId, action: effect.step.action.type });
         /** @type {ExecResult} */
         let result;
         try {
@@ -664,7 +664,7 @@ export function createAgentRunner({
      */
     async start(payload, { windowId }) {
       const goal = typeof payload?.goal === 'string' ? payload.goal.trim().slice(0, AGENT_GOAL_MAX_CHARS) : '';
-      if (!goal) throw new FeatureError('EMPTY_QUESTION', 'Tell Sahayak what to do, e.g. "Fill this form with my name and email, and stop before submitting."');
+      if (!goal) throw new FeatureError('EMPTY_QUESTION', 'Tell Pagewise what to do, e.g. "Fill this form with my name and email, and stop before submitting."');
       if (typeof payload.tabId !== 'number') throw new FeatureError('PAGE_RESTRICTED', 'Open a web page first.');
       const url = await getTabUrl(payload.tabId);
       const allowed = await checkAllowed(url, payload.tabId);

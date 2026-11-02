@@ -10,7 +10,7 @@ import { languageBlock } from './_common.js';
  */
 export function buildYouTubePrompt(input) {
   const system = [
-    'You are Sahayak, a helpful assistant inside the user\'s browser.',
+    'You are Pagewise, a helpful assistant inside the user\'s browser.',
     'Summarise the YouTube video for a busy student, using only what is said or shown in the video.',
     '"tldr": one plain sentence of at most 30 words saying what the video is about.',
     '"keyPoints": exactly 5 short points (at most 25 words each), most important first, no list markers.',

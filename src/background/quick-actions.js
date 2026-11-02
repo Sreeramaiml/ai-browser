@@ -88,7 +88,7 @@ export function createQuickActions({
         const timeout = new Promise((resolve) => { timer = setTimeout(() => resolve(null), PAGE_SELECTION_TIMEOUT_MS); });
         const page = await Promise.race([getSelection(payload.tabId).catch(() => null), timeout]);
         clearTimeout(timer);
-        if (page?.protected) throw new FeatureError('PROTECTED_FIELD', 'Sahayak never reads password, OTP or card fields.');
+        if (page?.protected) throw new FeatureError('PROTECTED_FIELD', 'Pagewise never reads password, OTP or card fields.');
         if (page?.text && squash(page.text).includes(squash(raw))) {
           selection = { ...page, url: page.url ?? selection.url, pageTitle: page.pageTitle ?? selection.pageTitle };
         }
@@ -113,7 +113,7 @@ export function createQuickActions({
       // Before anything is read from the page: is it banking, private, or blocked? (§14.2)
       const access = typeof payload.tabId === 'number' ? await checkPage(payload.tabId) : { scope: 'page' };
       const found = await resolveSelection(payload);
-      if (found.protected) throw new FeatureError('PROTECTED_FIELD', 'Sahayak never reads password, OTP or card fields.');
+      if (found.protected) throw new FeatureError('PROTECTED_FIELD', 'Pagewise never reads password, OTP or card fields.');
       if (!found.text) throw new FeatureError('NO_SELECTION', 'Select some text on the page first.');
       // On a private page only the selected words go out: no surrounding text, title or address (EC-TIR-09).
       const privatePage = access.scope === 'selection-only';

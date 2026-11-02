@@ -73,24 +73,24 @@ function blockedMessage(reason, feature) {
   const verb = feature === 'screenshot' ? 'capture' : 'read';
   switch (reason) {
     case 'blocked':
-      return "You've switched Sahayak off on this site. You can change that in Settings → Safety.";
+      return "You've switched Pagewise off on this site. You can change that in Settings → Safety.";
     case 'financial':
     case 'financial-frame':
-      return 'Sahayak is switched off on payment and banking pages to keep your money safe.';
+      return 'Pagewise is switched off on payment and banking pages to keep your money safe.';
     case 'payment-fields':
       return feature === 'read'
-        ? `This page asks for card, UPI or OTP details, so Sahayak won't read it. ${SELECT_INSTEAD}`
-        : 'This page asks for card, UPI or OTP details, so Sahayak is switched off here to keep your money safe.';
+        ? `This page asks for card, UPI or OTP details, so Pagewise won't read it. ${SELECT_INSTEAD}`
+        : 'This page asks for card, UPI or OTP details, so Pagewise is switched off here to keep your money safe.';
     case 'unchecked':
-      return "Sahayak couldn't check whether this page is safe, so it won't use it. Reload the page and try again.";
+      return "Pagewise couldn't check whether this page is safe, so it won't use it. Reload the page and try again.";
     case 'sensitive':
       return feature === 'agent'
         ? "The agent doesn't run on private pages like email, documents or messages."
-        : `This page holds private content like email, documents or messages, so Sahayak won't ${verb} it.${feature === 'read' ? ` ${SELECT_INSTEAD}` : ''}`;
+        : `This page holds private content like email, documents or messages, so Pagewise won't ${verb} it.${feature === 'read' ? ` ${SELECT_INSTEAD}` : ''}`;
     case 'login':
-      return `This page has a login form, so Sahayak won't ${verb} it.${feature === 'read' ? ` ${SELECT_INSTEAD}` : ''}`;
+      return `This page has a login form, so Pagewise won't ${verb} it.${feature === 'read' ? ` ${SELECT_INSTEAD}` : ''}`;
     default:
-      return "Sahayak can't be used on this page.";
+      return "Pagewise can't be used on this page.";
   }
 }
 
@@ -131,7 +131,7 @@ export function safetyBadge(tiers) {
     return { level: 'blocked', label: tiers.reason === 'unchecked' ? blockedMessage('unchecked', 'agent') : blockedMessage(tiers.reason, 'agent') };
   }
   if (tiers.read === 2 || tiers.act === 2) return { level: 'sensitive', label: blockedMessage(tiers.reason, 'read') };
-  return { level: 'ok', label: 'Sahayak can read this page.' };
+  return { level: 'ok', label: 'Pagewise can read this page.' };
 }
 
 /**
@@ -144,7 +144,7 @@ export function safetyBadge(tiers) {
 /** Hosts that only exist on the user's own machine: where `npx serve practice` runs (EC-PRC-01). */
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]']);
 
-const NOT_ALLOWED = "The agent only works on Sahayak's practice site and on sites you've added as your own in Settings.";
+const NOT_ALLOWED = "The agent only works on Pagewise's practice site and on sites you've added as your own in Settings.";
 
 /**
  * May the agent act on this page? Checked before AGENT_START and after every navigation (§14.3).
@@ -209,12 +209,12 @@ export function checkAction(action, target, ctx = {}) {
       if (!target) return deny('That step needs something on the page to act on.');
       // Fail closed: protected if either the scan or a fresh look says so.
       const kind = target.protected || classifyField({ ...target, type: target.type ?? target.inputType, pageOtp: ctx.pageOtp });
-      if (kind) return deny(`Sahayak never types into ${KIND_LABEL[kind]} fields.`);
+      if (kind) return deny(`Pagewise never types into ${KIND_LABEL[kind]} fields.`);
       if (action.type === 'type') {
         const secret = looksLikeSecretValue(String(action.value ?? ''), {
           label: target.label, pageOtp: ctx.pageOtp, pageCard: ctx.pageCard, fromProfile: ctx.fromProfile
         });
-        if (secret) return deny(`That value looks like ${SECRET_LABEL[secret]}, so Sahayak won't type it.`);
+        if (secret) return deny(`That value looks like ${SECRET_LABEL[secret]}, so Pagewise won't type it.`);
       }
       return OK;
     }
@@ -222,12 +222,12 @@ export function checkAction(action, target, ctx = {}) {
     case 'click': {
       if (!target) return deny('That step needs something on the page to act on.');
       const { kind, reason } = classifyAction(target);
-      if (kind === 'blocked') return deny(`Sahayak won't click this. ${reason}`);
+      if (kind === 'blocked') return deny(`Pagewise won't click this. ${reason}`);
       if (kind === 'consequential') return { allowed: true, reason, requiresConfirm: true };
       return OK;
     }
 
     default:
-      return deny('Sahayak doesn’t know that kind of step.');
+      return deny('Pagewise doesn’t know that kind of step.');
   }
 }

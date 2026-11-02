@@ -1,4 +1,4 @@
-# Sahayak — Architecture
+# Pagewise — Architecture
 
 > Companion to [problemstatement.md](problemstatement.md). The problem statement says **what** to build; this document says **how** it is put together: components, data flow, contracts, safety enforcement, and the order to build it in.
 >
@@ -49,7 +49,7 @@
 | P1 | **The model proposes, the code decides.** | The LLM only ever returns data (text or JSON). Executing anything is done by extension code after validation, a safety check, and user approval. |
 | P2 | **Safety is deterministic.** | Every safety rule (FR-10) is a pure function in `src/shared/safety/`, unit tested, and checked in **two places**: the service worker before an action is dispatched, and the content script right before it runs. Prompt instructions are a convenience, never the guarantee. |
 | P3 | **One step at a time.** | The agent is a persisted state machine that moves forward only when it receives a user event (Approve / Skip / Stop). There is no "run all" path. |
-| P4 | **Local first.** | Profile, skills, settings, logs, and API keys live in `chrome.storage.local`. Nothing is synced and there is no Sahayak backend. |
+| P4 | **Local first.** | Profile, skills, settings, logs, and API keys live in `chrome.storage.local`. Nothing is synced and there is no Pagewise backend. |
 | P5 | **Free tier by default.** | The cheapest model that can do the job is used first. Moving to a stronger model or a fallback provider is an explicit, logged routing decision. |
 | P6 | **Survive sleep.** | The MV3 service worker can be killed at any time. All long-lived state (agent tasks, pending context-menu requests) is written to storage before any await that could outlive the worker. |
 | P7 | **Vertical slices.** | Each feature is built end to end (UI → SW → content → LLM) in its smallest form before the next feature starts. |
@@ -101,7 +101,7 @@ flowchart LR
 | Concern | Decision | Rationale |
 |---------|----------|-----------|
 | Language | Modern JavaScript (ES2022) with JSDoc type annotations; `// @ts-check` in every file | No build step, but editor type checking still works. Claude edits it easily. |
-| Modules | ES modules in the service worker (`"type": "module"`) and side panel; **classic scripts** for content scripts that share a `globalThis.__sahayak` namespace | MV3 content scripts can't be ES modules. Injecting a few ordered files avoids needing a bundler. |
+| Modules | ES modules in the service worker (`"type": "module"`) and side panel; **classic scripts** for content scripts that share a `globalThis.__pagewise` namespace | MV3 content scripts can't be ES modules. Injecting a few ordered files avoids needing a bundler. |
 | UI | Vanilla Web Components (custom elements) plus one small reactive store | No framework dependency, small ZIP, and nothing for the MV3 CSP to object to. |
 | Article extraction | Mozilla **Readability.js**, vendored in `vendor/` | Specified by the problem statement. Runs on a cloned DOM so the live page isn't touched. |
 | Markdown rendering | **marked** + **DOMPurify**, vendored | Model output can echo injected HTML from the page, so it must always be sanitised. |
@@ -132,7 +132,7 @@ export const ACTION_MAP_MAX_ELEMENTS = 150;
 ## 4. Repository Layout
 
 ```
-Sahayak_1.0.0/
+ai-browser/
 ├── manifest.json
 ├── src/
 │   ├── background/                 # Service worker (ES modules)
@@ -211,11 +211,11 @@ Sahayak_1.0.0/
 ```jsonc
 {
   "manifest_version": 3,
-  "name": "Sahayak",
+  "name": "Pagewise",
   "version": "1.0.0",
   "description": "A side-panel AI agent that reads, explains, sees, and acts — only with your approval.",
   "minimum_chrome_version": "116",
-  "action": { "default_title": "Open Sahayak" },
+  "action": { "default_title": "Open Pagewise" },
   "side_panel": { "default_path": "src/sidepanel/index.html" },
   "background": { "service_worker": "src/background/service-worker.js", "type": "module" },
   "permissions": ["sidePanel", "storage", "contextMenus", "scripting", "activeTab", "tabs"],
@@ -227,7 +227,7 @@ Sahayak_1.0.0/
   "commands": {
     "stop-agent": {
       "suggested_key": { "default": "Alt+Shift+X" },
-      "description": "Stop Sahayak agent immediately"
+      "description": "Stop Pagewise agent immediately"
     }
   },
   "options_page": "src/sidepanel/options.html",
@@ -237,7 +237,7 @@ Sahayak_1.0.0/
 
 **Why `<all_urls>`:** reading the page, scanning elements, re-injecting after navigation, and capturing the tab must all work without asking for permission on every click. The README explains this and points out that the safety layer (§14), not the permission, is what limits *actions*. Narrowing this to `optional_host_permissions` granted per origin is listed as future work (§23).
 
-**No static `content_scripts`.** Scripts are injected only when a feature needs them (`chrome.scripting.executeScript`). This keeps Sahayak off pages the user never uses it on.
+**No static `content_scripts`.** Scripts are injected only when a feature needs them (`chrome.scripting.executeScript`). This keeps Pagewise off pages the user never uses it on.
 
 ### 5.2 Service Worker (orchestrator)
 
@@ -277,7 +277,7 @@ const CONTENT_FILES = [
 
 export async function ensureInjected(tabId) {
   const [{ result: present }] = await chrome.scripting.executeScript({
-    target: { tabId }, func: () => !!globalThis.__sahayak?.ready
+    target: { tabId }, func: () => !!globalThis.__pagewise?.ready
   });
   if (!present) {
     await chrome.scripting.executeScript({ target: { tabId }, files: CONTENT_FILES });
@@ -285,9 +285,9 @@ export async function ensureInjected(tabId) {
 }
 ```
 
-`bootstrap.js` guards against double injection and installs a single `chrome.runtime.onMessage` listener that dispatches to the namespaced modules (`__sahayak.extractor.extract()`, `__sahayak.scanner.scan()`, …).
+`bootstrap.js` guards against double injection and installs a single `chrome.runtime.onMessage` listener that dispatches to the namespaced modules (`__pagewise.extractor.extract()`, `__pagewise.scanner.scan()`, …).
 
-Content scripts **cannot** run on `chrome://` pages, the Chrome Web Store, other extensions' pages, or `file://` URLs unless the user enables file access. The panel shows a clear "Sahayak can't read this kind of page" state instead of an error.
+Content scripts **cannot** run on `chrome://` pages, the Chrome Web Store, other extensions' pages, or `file://` URLs unless the user enables file access. The panel shows a clear "Pagewise can't read this kind of page" state instead of an error.
 
 ### 5.4 Side Panel (UI)
 
@@ -608,10 +608,10 @@ A conversation is keyed by `tabId + url`. Navigating to a new URL starts a fresh
 Registered in `onInstalled`:
 
 ```js
-chrome.contextMenus.create({ id: 'sahayak', title: 'Sahayak', contexts: ['selection'] });
-chrome.contextMenus.create({ id: 'explain',   parentId: 'sahayak', title: 'Explain this',  contexts: ['selection'] });
-chrome.contextMenus.create({ id: 'translate', parentId: 'sahayak', title: 'Translate',     contexts: ['selection'] });
-chrome.contextMenus.create({ id: 'draft',     parentId: 'sahayak', title: 'Draft a reply', contexts: ['selection'] });
+chrome.contextMenus.create({ id: 'pagewise', title: 'Pagewise', contexts: ['selection'] });
+chrome.contextMenus.create({ id: 'explain',   parentId: 'pagewise', title: 'Explain this',  contexts: ['selection'] });
+chrome.contextMenus.create({ id: 'translate', parentId: 'pagewise', title: 'Translate',     contexts: ['selection'] });
+chrome.contextMenus.create({ id: 'draft',     parentId: 'pagewise', title: 'Draft a reply', contexts: ['selection'] });
 ```
 
 | Action | Prompt behaviour | Output |
@@ -699,7 +699,7 @@ interface ElementDescriptor {
 ### 11.3 Stable numbering
 
 - Each scan creates a `snapshotId` (`${Date.now()}-${counter}`) and numbers elements **in DOM order**. Numbers are stable for that page state.
-- The content script keeps `Map<id, WeakRef<Element>>` and sets `data-sahayak-id` on each element.
+- The content script keeps `Map<id, WeakRef<Element>>` and sets `data-pagewise-id` on each element.
 - An action always refers to `{snapshotId, elementId}`. If the snapshot is stale (DOM changed, navigation), the executor re-matches by `fingerprint`. If that fails, it returns `STALE_TARGET` and the agent re-observes without counting a step.
 - A `MutationObserver` marks the snapshot `dirty` when significant changes happen, so the next observe always rescans.
 
@@ -729,7 +729,7 @@ OUTSIDE FORMS
 
 ### 11.5 Overlay (badges and highlights)
 
-- One host `<div id="sahayak-overlay">` with a **closed shadow root**, `position: fixed; inset: 0; pointer-events: none; z-index: 2147483646`, so page CSS can't style it and it can't intercept clicks.
+- One host `<div id="pagewise-overlay">` with a **closed shadow root**, `position: fixed; inset: 0; pointer-events: none; z-index: 2147483646`, so page CSS can't style it and it can't intercept clicks.
 - Badges are small numbered pills at each element's top-left, repositioned on `scroll` and `resize` with `requestAnimationFrame` throttling.
 - Highlight styles:
   - `find`: pulsing blue ring.
@@ -911,7 +911,7 @@ sequenceDiagram
 
 ```
 SYSTEM:
-You are Sahayak's browser agent. You propose exactly ONE next action as JSON.
+You are Pagewise's browser agent. You propose exactly ONE next action as JSON.
 Rules:
 - Use only element numbers from ACTION MAP. Never invent numbers.
 - Never act on elements marked 🔒protected. Never attempt login, payment or OTP steps.
@@ -1021,9 +1021,9 @@ Rendering is plain string substitution. There is no expression language and no c
 
 **Import and export**
 
-- Export writes `sahayak-skills-YYYYMMDD.json`:
+- Export writes `pagewise-skills-YYYYMMDD.json`:
   ```json
-  { "format": "sahayak-skills", "version": 1, "exportedAt": "2026-11-01T10:00:00Z", "skills": [ … ] }
+  { "format": "pagewise-skills", "version": 1, "exportedAt": "2026-11-01T10:00:00Z", "skills": [ … ] }
   ```
   The file is downloaded from the panel with a `Blob` and a temporary `<a download>`.
 - Import uses `<input type=file accept=.json>`:
@@ -1084,13 +1084,13 @@ The checks are layered so that one bug or one prompt injection can't bypass all 
 5. A `type=password` field on the page means login pages are tier 2 for read features, and agent actions on that form are blocked.
 6. Otherwise tier 0.
 
-Blocked states are friendly and explain why: *"Sahayak is switched off on payment and banking pages to keep your money safe."* There is **no override for tier 3**.
+Blocked states are friendly and explain why: *"Pagewise is switched off on payment and banking pages to keep your money safe."* There is **no override for tier 3**.
 
 ### 14.3 Agent allow-list
 
 The agent runs only on:
 
-- the bundled **practice environment** origins: `http://localhost:*`, `http://127.0.0.1:*`, and the GitHub Pages practice path `https://<user>.github.io/sahayak/practice/`
+- the bundled **practice environment** origins: `http://localhost:*`, `http://127.0.0.1:*`, and the GitHub Pages practice path `https://<user>.github.io/pagewise/practice/`
 - **owned domains** the user adds in Settings → Safety. Adding one shows a confirmation: *"I own or control this site."*
 
 `checkAgentAllowed(url)` runs at start and after every navigation. Leaving the allow-list pauses the task.
@@ -1148,7 +1148,7 @@ export { classifyField, looksLikeSecretValue };
 
 ```js
 // src/content/generated/field-rules.classic.js  (generated, injected into pages)
-(globalThis.__sahayakShared ??= {}).fieldRules = { classifyField, looksLikeSecretValue };
+(globalThis.__pagewiseShared ??= {}).fieldRules = { classifyField, looksLikeSecretValue };
 ```
 
 The generated files are committed. A unit test checks that each pair is identical apart from the last line, so they can't drift apart. This is the only generated code in the repo.
@@ -1194,7 +1194,7 @@ Emails and phone numbers are **not** redacted by default, because that would bre
 | Page text, selections, screenshots | Memory, plus `storage.session` for chat history | Sent to the LLM provider for the requested feature, tier 0 (or tier 2 selection-only) |
 | Skills, logs | `storage.local` | Only when the user exports them |
 
-There is no analytics or telemetry, and there is no Sahayak server.
+There is no analytics or telemetry, and there is no Pagewise server.
 
 ### 15.4 Extension hardening
 
@@ -1219,7 +1219,7 @@ There is no analytics or telemetry, and there is no Sahayak server.
 | `CONTEXT_TOO_LARGE` | 400 token limit | Trim to 50% and retry once | (silent unless it fails again) |
 | `SAFETY_BLOCKED` (model) | Provider safety filter | No | "The AI declined to answer this content." |
 | `INVALID_OUTPUT` | JSON failed after repair and escalation | No | "I couldn't produce a valid next step. You can try again or stop." |
-| `PAGE_RESTRICTED` | `chrome://`, Web Store, PDF viewer | — | "Sahayak can't read this kind of page." |
+| `PAGE_RESTRICTED` | `chrome://`, Web Store, PDF viewer | — | "Pagewise can't read this kind of page." |
 | `PAGE_BLOCKED` | Safety tier 2/3 | — | Tier-specific message (§14.2) |
 | `STALE_TARGET` | DOM changed | Re-observe | (silent) "Page changed — looking again…" |
 | `YOUTUBE_UNSUPPORTED` | Private, restricted, or too long | No | See §9.3 |
@@ -1320,7 +1320,7 @@ The pages are plain HTML and JS with no backend. "Submit" shows a success screen
 ### 20.1 Development
 
 ```bash
-git clone https://github.com/<user>/sahayak && cd sahayak
+git clone https://github.com/<user>/pagewise && cd pagewise
 # Chrome → chrome://extensions → Developer mode → Load unpacked → select repo root
 npm install          # dev tools only (vitest, happy-dom)
 npm test
@@ -1331,10 +1331,10 @@ After editing service-worker or manifest code, click **Reload** on `chrome://ext
 
 ### 20.2 Release ZIP (`scripts/package.mjs`)
 
-- Copies **only** `manifest.json`, `src/`, `vendor/`, and `assets/` into `dist/sahayak-v<version>/`.
+- Copies **only** `manifest.json`, `src/`, `vendor/`, and `assets/` into `dist/pagewise-v<version>/`.
 - Fails if any file contains something shaped like a key (`AIza[0-9A-Za-z_-]{35}`, `gsk_[A-Za-z0-9]{20,}`).
 - Fails if `manifest.version` doesn't match `package.json` and the git tag.
-- Zips to `dist/sahayak-v<version>.zip`.
+- Zips to `dist/pagewise-v<version>.zip`.
 
 ### 20.3 GitHub
 

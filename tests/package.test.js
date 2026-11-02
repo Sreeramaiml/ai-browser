@@ -10,7 +10,7 @@ import {
 /** A throwaway copy of what the packager reads, to break on purpose. */
 const temps = [];
 function copyRepo() {
-  const dir = mkdtempSync(join(tmpdir(), 'sahayak-pkg-'));
+  const dir = mkdtempSync(join(tmpdir(), 'pagewise-pkg-'));
   temps.push(dir);
   for (const item of [...INCLUDE, 'package.json', 'scripts']) cpSync(item, join(dir, item), { recursive: true });
   return dir;
@@ -168,7 +168,7 @@ describe('GitHub workflows (architecture §20.3)', () => {
     const order = ['npm test', 'npm run test:safety', 'package.mjs --tag', 'package.mjs --notes', 'gh release create'].map((s) => release.indexOf(s));
     expect(order.every((i) => i >= 0)).toBe(true);
     expect([...order].sort((a, b) => a - b)).toEqual(order);
-    expect(release).toContain('dist/sahayak-${GITHUB_REF_NAME}.zip');
+    expect(release).toContain('dist/pagewise-${GITHUB_REF_NAME}.zip');
     expect(release).toContain('--prerelease');
   });
 

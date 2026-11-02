@@ -5,9 +5,9 @@
 // a bug or an injection upstream can't type into a password box or press a login button (§14.1).
 
 (() => {
-  const ns = /** @type {any} */ (globalThis).__sahayak;
+  const ns = /** @type {any} */ (globalThis).__pagewise;
   if (ns.executor) return;
-  const rules = /** @type {any} */ (globalThis).__sahayakShared ?? {};
+  const rules = /** @type {any} */ (globalThis).__pagewiseShared ?? {};
 
   /** After acting, wait for the page to settle: no DOM changes for QUIET_MS, at most MAX_WAIT_MS. */
   const QUIET_MS = 300;
@@ -104,7 +104,7 @@
       pick.click();
       return { ok: true, valueAfter: radioLabel(pick) };
     }
-    return fail('UNSUPPORTED', "Sahayak can't pick from this kind of list yet. Choose it yourself, then skip this step.");
+    return fail('UNSUPPORTED', "Pagewise can't pick from this kind of list yet. Choose it yourself, then skip this step.");
   }
 
   /** The nearest ancestor that scrolls vertically, if any. @param {Element} el */
@@ -130,7 +130,7 @@
     if (el instanceof HTMLAnchorElement && el.target === '_blank') {
       // New-tab links are followed in this tab, and only within the site (§12.6).
       const url = new URL(el.href, location.href);
-      if (url.origin !== location.origin) return fail('NEW_TAB_LINK', "That link opens another site in a new tab, so Sahayak won't follow it.");
+      if (url.origin !== location.origin) return fail('NEW_TAB_LINK', "That link opens another site in a new tab, so Pagewise won't follow it.");
       location.assign(url.href);
       return { ok: true };
     }
@@ -161,7 +161,7 @@
       await waitForQuiet();
       return { ok: true, effect: { navigated: false, url: location.href } };
     }
-    if (type !== 'click' && type !== 'type' && type !== 'select') return fail('BAD_ACTION', 'Sahayak doesn’t know that kind of step.');
+    if (type !== 'click' && type !== 'type' && type !== 'select') return fail('BAD_ACTION', 'Pagewise doesn’t know that kind of step.');
     if (!el) return fail('STALE_TARGET', 'That step needs an element on the page.');
 
     // Judge the element again, as the page is now.
@@ -173,20 +173,20 @@
     let done;
     if (type === 'click') {
       if (d.role === 'file') return fail('FILE_INPUT', 'Please choose the file yourself.');
-      if (d.blocked) return fail('BLOCKED', "Sahayak won't click this. It would submit a form with a password, OTP or card field.");
+      if (d.blocked) return fail('BLOCKED', "Pagewise won't click this. It would submit a form with a password, OTP or card field.");
       if (d.consequential && !confirmed) return fail('NEEDS_CONFIRMATION', 'This step needs your second confirmation first.');
       done = click(el);
     } else {
       // Fail closed if the shared rules didn't load: never type blind.
-      if (!rules.fieldRules) return fail('BLOCKED', "Sahayak's safety rules didn't load on this page, so it won't type here.");
-      if (d.protected) return fail('PROTECTED_FIELD', 'Sahayak never types into password, OTP or card fields.');
+      if (!rules.fieldRules) return fail('BLOCKED', "Pagewise's safety rules didn't load on this page, so it won't type here.");
+      if (d.protected) return fail('PROTECTED_FIELD', 'Pagewise never types into password, OTP or card fields.');
       const value = String(action?.value ?? '');
       if (!value) return fail('BAD_ACTION', 'There is nothing to type.');
       if (type === 'type') {
         const typable = TYPE_ROLES.has(d.role) || (d.role === 'combobox' && d.tag === 'input');
         if (!typable) return fail('WRONG_ELEMENT_KIND', "That isn't a text field.");
         const secret = rules.fieldRules.looksLikeSecretValue(value, { label: d.name, pageOtp: d.pageOtp });
-        if (secret) return fail('BLOCKED', "That value looks like a card number, Aadhaar number or one-time code, so Sahayak won't type it.");
+        if (secret) return fail('BLOCKED', "That value looks like a card number, Aadhaar number or one-time code, so Pagewise won't type it.");
         done = { ok: true, valueAfter: typeInto(el, value) };
       } else {
         done = selectOption(el, value);

@@ -139,7 +139,7 @@ export function createGateway({
     if (!geminiKey) throw new LlmError('NO_API_KEY');
     const chain = chainFor(req.task, models, { escalate: req.escalate, groq: Boolean(groqKey) });
     // Escalations cost more quota, so they are logged (architecture §8.2).
-    if (req.escalate) console.info('[Sahayak] escalation', { task: req.task, to: chain[0]?.model, reason: 'try-harder' });
+    if (req.escalate) console.info('[Pagewise] escalation', { task: req.task, to: chain[0]?.model, reason: 'try-harder' });
 
     let turns = req.turns;
     let trimmed = false;
@@ -157,7 +157,7 @@ export function createGateway({
         continue;
       }
       if (i > 0) {
-        console.info(`[Sahayak] ${link.tier === 'groq' ? 'fallback' : 'escalation'}`, {
+        console.info(`[Pagewise] ${link.tier === 'groq' ? 'fallback' : 'escalation'}`, {
           task: req.task, to: link.model, reason: failures.at(-1)?.code ?? 'cooldown'
         });
       }

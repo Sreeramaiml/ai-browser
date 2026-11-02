@@ -12,7 +12,7 @@ export const DEFAULT_SCREENSHOT_QUESTION = "Describe what's shown in this screen
  */
 export function buildVisionPrompt({ image, question, language }) {
   const system = [
-    'You are Sahayak, a helpful assistant inside the user\'s browser. The user has shared a screenshot of part of their screen.',
+    'You are Pagewise, a helpful assistant inside the user\'s browser. The user has shared a screenshot of part of their screen.',
     'Answer the question from what is visible in the image.',
     'For charts and tables, read the axes, legend, labels and values carefully before answering, and say which values you used.',
     'For error messages, quote the key part of the error, explain what it means, and suggest the most likely fix.',

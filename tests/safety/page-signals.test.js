@@ -6,10 +6,10 @@ import { checkPage, pageTiers } from '../../src/shared/safety/policy.js';
 let signals;
 
 beforeAll(async () => {
-  globalThis.__sahayak = { handlers: {} };
+  globalThis.__pagewise = { handlers: {} };
   await import('../../src/content/generated/field-rules.classic.js');
   await import('../../src/content/extractor.js');
-  signals = () => globalThis.__sahayak.handlers.CS_PAGE_SIGNALS();
+  signals = () => globalThis.__pagewise.handlers.CS_PAGE_SIGNALS();
 });
 
 /** @param {string} html @param {string} [title] */
@@ -31,7 +31,7 @@ const tiersOf = (s, url = 'http://localhost:3000/x/') => pageTiers({ url, signal
 
 describe('CS_PAGE_SIGNALS (architecture §14.2)', () => {
   it('registers the handler', () => {
-    expect(typeof globalThis.__sahayak.handlers.CS_PAGE_SIGNALS).toBe('function');
+    expect(typeof globalThis.__pagewise.handlers.CS_PAGE_SIGNALS).toBe('function');
   });
 
   it('finds card, OTP, UPI and password fields on the practice safety pages', () => {

@@ -4,10 +4,10 @@
 // restyle it and it can't intercept the user's clicks (EC-SCN-21).
 
 (() => {
-  const ns = /** @type {any} */ (globalThis).__sahayak;
+  const ns = /** @type {any} */ (globalThis).__pagewise;
   if (ns.overlay) return;
 
-  const HOST_ID = 'sahayak-overlay';
+  const HOST_ID = 'pagewise-overlay';
   /** Badges switch themselves off if nobody touches them for this long (§11.5). */
   const IDLE_MS = 10 * 60_000;
   const STYLES = new Set(['find', 'pending', 'dry-run', 'blocked']);

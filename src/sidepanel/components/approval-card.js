@@ -207,7 +207,7 @@ function body(task, host, handlers) {
       const download = /** @type {HTMLButtonElement} */ (h('button', 'btn btn-secondary', 'Download .md'));
       download.type = 'button';
       download.addEventListener('click', () => downloadText(
-        `sahayak-result-${new Date(task.updatedAt).toISOString().slice(0, 10)}.md`, `# ${task.goal}\n\n${task.result ?? ''}\n`, 'text/markdown'
+        `pagewise-result-${new Date(task.updatedAt).toISOString().slice(0, 10)}.md`, `# ${task.goal}\n\n${task.result ?? ''}\n`, 'text/markdown'
       ));
       row.append(copy, download);
       out.append(row);

@@ -215,7 +215,7 @@ export function validateKeyInput(provider, raw) {
     return { ok: false, error: 'This looks like a Groq key. Paste it in the Groq field instead.' };
   }
   if (provider === 'gemini' && CLAUDE_KEY_RE.test(key)) {
-    return { ok: false, error: 'This is a Claude key. Sahayak uses a Gemini key from Google AI Studio.' };
+    return { ok: false, error: 'This is a Claude key. Pagewise uses a Gemini key from Google AI Studio.' };
   }
   if (provider === 'groq' && GEMINI_KEY_RE.test(key)) {
     return { ok: false, error: 'This looks like a Gemini key. Paste it in the Gemini field instead.' };
@@ -483,7 +483,7 @@ export class StorageError extends Error {
 function toStorageError(err) {
   const msg = err instanceof Error ? err.message : String(err);
   if (/quota/i.test(msg)) {
-    return new StorageError('QUOTA_EXCEEDED', 'Sahayak’s storage is full. Export and clear old logs, then try again.');
+    return new StorageError('QUOTA_EXCEEDED', 'Pagewise’s storage is full. Export and clear old logs, then try again.');
   }
   return new StorageError('WRITE_FAILED', 'Couldn’t save. Please try again.');
 }
@@ -505,7 +505,7 @@ export function createStorage(area) {
 
   async function write(items) {
     if (await isReadOnly()) {
-      throw new StorageError('READ_ONLY', 'This data was saved by a newer version of Sahayak. Update Sahayak to change settings.');
+      throw new StorageError('READ_ONLY', 'This data was saved by a newer version of Pagewise. Update Pagewise to change settings.');
     }
     try {
       await area.set(items);

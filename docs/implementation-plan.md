@@ -1,4 +1,4 @@
-# Sahayak — Implementation Plan
+# Pagewise — Implementation Plan
 
 > Turns [problemstatement.md](problemstatement.md) (what) and [architecture.md](architecture.md) (how) into an ordered, checkable build plan (when, and in what order).
 >
@@ -43,7 +43,7 @@
 
 ```mermaid
 gantt
-    title Sahayak — 4-week build
+    title Pagewise — 4-week build
     dateFormat  YYYY-MM-DD HH:mm
     axisFormat  %b %d
     %% Day 1 = first day of the build; shift the start date to your actual start.
@@ -100,7 +100,7 @@ These apply to every task.
 |------|------|
 | **Branching** | `main` is always loadable. Each task gets a `feat/p1.3-gateway`-style branch, merged once its *Done when* passes. |
 | **Commits** | Small and descriptive (`feat(llm): add gemini adapter with x-goog-api-key header`). Never commit `.env`, keys, or `dist/`. |
-| **Code style** | ES2022 with `// @ts-check` and JSDoc types (architecture §3). Service worker and panel use ES modules; content scripts are classic and namespaced under `globalThis.__sahayak`. |
+| **Code style** | ES2022 with `// @ts-check` and JSDoc types (architecture §3). Service worker and panel use ES modules; content scripts are classic and namespaced under `globalThis.__pagewise`. |
 | **SW rules** | Register listeners at the top level, keep no important state in memory, call `sidePanel.open()` before any `await` (architecture §5.2). |
 | **Tests** | Every pure module (`schemas`, `safety/*`, `redact`, `routing-policy`, `rate-limiter`, `agent-controller`) gets Vitest tests **in the same task** that creates it. |
 | **Real-page check** | Each task is verified on at least 3 real public pages plus the practice site once it exists. |
@@ -128,7 +128,7 @@ These apply to every task.
 
 **Steps**
 
-1. `git init`. Create a public GitHub repo `sahayak` and push.
+1. `git init`. Create a public GitHub repo `pagewise` and push.
 2. Add `.gitignore` with `node_modules/`, `dist/`, `.env*`, `*.key`, `secrets*.json`, `.DS_Store`.
 3. Run `npm init -y`, then `npm i -D vitest happy-dom`. Add scripts `"test": "vitest run"`, `"test:watch": "vitest"`.
 4. Create the empty folders: `src/{background/{agent,llm/providers},content/generated,sidepanel/{views,components},shared/{prompts,safety}}`, `vendor/`, `assets/icons/`, `practice/`, `site/`, `scripts/`.
@@ -151,7 +151,7 @@ These apply to every task.
 
 ### P1.1 Extension shell and side panel (Day 2) · *Slice 1a*
 
-**Goal:** clicking the toolbar icon opens the Sahayak side panel. The panel shows the active tab's title and its tabs.
+**Goal:** clicking the toolbar icon opens the Pagewise side panel. The panel shows the active tab's title and its tabs.
 
 **Files**
 
@@ -171,7 +171,7 @@ These apply to every task.
 3. Build the panel shell: header (favicon, title, language-toggle placeholder, ⚙) and tabs **Read · Chat · See · Agent · Skills** (empty views for now). Follow light/dark `prefers-color-scheme`.
 4. Port connection: the panel calls `chrome.runtime.connect({name:'panel'})`, and `router.js` accepts it, holds it, and handles `onDisconnect`. The panel reconnects after 500 ms if the port drops.
 5. Active-tab tracking: the SW listens to `tabs.onActivated` and `tabs.onUpdated` and pushes `ACTIVE_TAB {tabId,url,title,favIconUrl}` to the panel.
-6. Restricted-page detection (`chrome://`, Web Store, `file://` without access) shows a "Sahayak can't read this kind of page" state.
+6. Restricted-page detection (`chrome://`, Web Store, `file://` without access) shows a "Pagewise can't read this kind of page" state.
 7. Define every message constant from architecture §6 in `messages.js` now, even the unused ones, to avoid renaming later.
 
 **Verify**
@@ -636,7 +636,7 @@ Re-run every Week 1 acceptance criterion in a **fresh Chrome profile**:
    - a list re-rendered every 5 s (React-like replacement)
    - a button inside an open shadow root
    - a visually hidden input
-6. Each page includes `<meta name="sahayak-practice" content="1">` so manual testing can spot practice pages easily.
+6. Each page includes `<meta name="pagewise-practice" content="1">` so manual testing can spot practice pages easily.
 
 **Done when:** all pages work by hand in Chrome.
 
@@ -699,7 +699,7 @@ Re-run every Week 1 acceptance criterion in a **fresh Chrome profile**:
    - open-shadow-root traversal
 2. Accessible-name computation in the architecture §11.2 order. Truncate to 80 chars.
 3. Descriptors: `ElementDescriptor` with `protected` (from `classifyField`), `consequential` (from `isConsequential`), `fingerprint`, `formId`, `inViewport`, and options for selects.
-4. Numbering: DOM order, plus `snapshotId`, a `Map<id, WeakRef>`, and `data-sahayak-id`. A `MutationObserver` marks the snapshot dirty.
+4. Numbering: DOM order, plus `snapshotId`, a `Map<id, WeakRef>`, and `data-pagewise-id`. A `MutationObserver` marks the snapshot dirty.
 5. `action-map.js`:
    - the compact line format from architecture §11.4
    - grouped by form
@@ -856,7 +856,7 @@ Re-run every Week 1 acceptance criterion in a **fresh Chrome profile**:
 
 **Verify**
 
-- Wait at an approval card, then open `chrome://serviceworker-internals` and **Stop** the Sahayak worker. Click Approve: the step runs correctly. Repeat after closing and reopening the panel.
+- Wait at an approval card, then open `chrome://serviceworker-internals` and **Stop** the Pagewise worker. Click Approve: the step runs correctly. Repeat after closing and reopening the panel.
 - Setting max steps to 3 stops at 3.
 - `Alt+Shift+X` stops the task mid-thinking (the fetch is aborted, as the network tab shows).
 - Dry run highlights only, and no field values change.
@@ -871,7 +871,7 @@ Re-run every Week 1 acceptance criterion in a **fresh Chrome profile**:
 
 **Goal:** at least two full practice errands complete with approval at every step. Aim for all three.
 
-| Errand | Goal given to Sahayak | Pass criteria |
+| Errand | Goal given to Pagewise | Pass criteria |
 |--------|-----------------------|---------------|
 | A. Internship | "Fill the internship application with my details (…) and submit it." | All 3 steps filled, Submit double-confirmed, the success page shows correct values |
 | B. Shop | "Find wireless headphones under ₹3000, sorted by price low to high." | Search typed, category and price filter applied, sorted, `done` lists the top 3 |
@@ -954,7 +954,7 @@ Write down the step count, the number of skips needed, and any model mistakes fo
    - `answer` mode: resolve the template, then run a streamed answer in the Chat tab
    - `agent` mode: resolve the template into a goal, then `AGENT_START` with `useProfile` when `needs` includes profile (every safety and approval rule applies)
 4. Seed the 4 starter skills (architecture §13.2) on first install only.
-5. **Export:** `{format:'sahayak-skills', version:1, exportedAt, skills}` saved through a Blob and `<a download>` as `sahayak-skills-YYYYMMDD.json`. The export must never include keys or the profile, and a test checks this.
+5. **Export:** `{format:'pagewise-skills', version:1, exportedAt, skills}` saved through a Blob and `<a download>` as `pagewise-skills-YYYYMMDD.json`. The export must never include keys or the profile, and a test checks this.
 6. **Import:**
    1. size under 256 KB
    2. parse
@@ -1009,7 +1009,7 @@ Write down the step count, the number of skips needed, and any model mistakes fo
 
 4. **Friendly blocked states:**
    - a context-header badge (🟢 / 🟡 / 🔴)
-   - per-tier messages, e.g. "Sahayak is switched off on payment and banking pages to keep your money safe."
+   - per-tier messages, e.g. "Pagewise is switched off on payment and banking pages to keep your money safe."
 5. **Settings → Safety:**
    - user blocklist (always tier 3)
    - **owned domains** for the agent, which require the confirmation "I own or control this site"
@@ -1059,7 +1059,7 @@ Write down the step count, the number of skips needed, and any model mistakes fo
    - copy only `manifest.json`, `src/`, `vendor/`, and `assets/`
    - run the key-shape scan (`AIza…` and `gsk_…`) and fail on a match
    - check the version matches across `manifest.json`, `package.json`, and the tag
-   - zip to `dist/sahayak-v1.0.0.zip`
+   - zip to `dist/pagewise-v1.0.0.zip`
    - support `--check` for a dry run
 2. `ci.yml`: on push and PR, run `npm ci`, `npm run sync`, `npm test`, the gitleaks action, and `node scripts/package.mjs --check`.
 3. `release.yml`: on a `v*` tag, run tests, package, and create a GitHub Release with the ZIP attached and notes from `CHANGELOG.md`.
@@ -1078,7 +1078,7 @@ Write down the step count, the number of skips needed, and any model mistakes fo
 
 ### P4.5 README, screenshots, and landing page (Days 26 afternoon – 27) · *Slice 17b*
 
-**Goal:** someone new can understand, install, and use Sahayak with no help.
+**Goal:** someone new can understand, install, and use Pagewise with no help.
 
 **Files**
 
@@ -1092,7 +1092,7 @@ Write down the step count, the number of skips needed, and any model mistakes fo
 **Steps**
 
 1. **README sections:**
-   - what Sahayak is
+   - what Pagewise is
    - the demo GIF
    - features (Read · Chat · See · Act · Remember)
    - **Install from release** (download the ZIP, unzip, `chrome://extensions`, Developer mode, Load unpacked)
@@ -1134,7 +1134,7 @@ Write down the step count, the number of skips needed, and any model mistakes fo
 
 ## 9. Final Definition-of-Done Run (Day 28)
 
-Use a **brand-new Chrome profile** on a machine (or user account) that has never had Sahayak. Install **only** from the public GitHub Release ZIP, and follow only the README.
+Use a **brand-new Chrome profile** on a machine (or user account) that has never had Pagewise. Install **only** from the public GitHub Release ZIP, and follow only the README.
 
 | # | DoD step (problem statement §9) | How to verify | ✔ |
 |---|----------------------------------|---------------|---|

@@ -18,7 +18,7 @@ function gateway() {
     json: async (req) => { sent.push(req); return { value: {}, model: 'm', provider: 'gemini' }; }
   };
 }
-const blocked = async () => { throw new FeatureError('PAGE_BLOCKED', 'Sahayak is switched off on payment and banking pages to keep your money safe.'); };
+const blocked = async () => { throw new FeatureError('PAGE_BLOCKED', 'Pagewise is switched off on payment and banking pages to keep your money safe.'); };
 const io = () => ({ onStart: () => {}, onDelta: () => {} });
 const codeOf = (p) => p.then(() => null, (e) => e.code);
 
@@ -105,12 +105,12 @@ describe('every feature checks the page before anything leaves the browser (P4.3
     const runner = createAgentRunner({
       store: createAgentStore({ get: async (k) => store.get(k) ?? (k === 'agentTasks' ? {} : null), set: async (k, v) => { store.set(k, v); } }),
       getTabUrl: async () => 'https://hdfcbank.com/', getDefaults: async () => ({ maxSteps: 15, dryRun: false }),
-      checkAllowed: async () => ({ allowed: false, reason: 'Sahayak is switched off on payment and banking pages to keep your money safe.', tier: true }),
+      checkAllowed: async () => ({ allowed: false, reason: 'Pagewise is switched off on payment and banking pages to keep your money safe.', tier: true }),
       observe: async () => { throw new Error('must not observe'); }, think: async () => null, execute: async () => null,
       highlight: async () => {}, notify: () => {}
     });
     const err = await runner.start({ tabId: 7, goal: 'pay my bill' }, { windowId: 1 }).catch((e) => e);
-    expect(err).toMatchObject({ code: 'PAGE_BLOCKED', message: 'Sahayak is switched off on payment and banking pages to keep your money safe.' });
+    expect(err).toMatchObject({ code: 'PAGE_BLOCKED', message: 'Pagewise is switched off on payment and banking pages to keep your money safe.' });
   });
 
   it('every feature\'s wiring uses the shared page guard', () => {

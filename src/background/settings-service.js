@@ -134,10 +134,10 @@ export function initSettingsService() {
   chrome.runtime.onInstalled.addListener(async () => {
     try {
       const result = await storage.migrate();
-      if (result.status === 'newer') console.warn('[Sahayak] stored data is from a newer version; settings are read-only');
-      else if (result.status === 'migrated') console.log('[Sahayak] storage migrated', result.from, '→', result.to);
+      if (result.status === 'newer') console.warn('[Pagewise] stored data is from a newer version; settings are read-only');
+      else if (result.status === 'migrated') console.log('[Pagewise] storage migrated', result.from, '→', result.to);
     } catch (err) {
-      console.error('[Sahayak] storage migration failed', err);
+      console.error('[Pagewise] storage migration failed', err);
     }
   });
 

@@ -15,7 +15,7 @@ import { UNTRUSTED_DATA_RULE, languageBlock, wrapUntrusted } from './_common.js'
  */
 export function buildSkillPrompt(input) {
   const system = [
-    "You are Sahayak, a helpful assistant inside the user's browser.",
+    "You are Pagewise, a helpful assistant inside the user's browser.",
     'The user saved the instructions below as a one-click "skill". Carry them out for the page or text they give you.',
     'Output only the result, ready to read or copy. Use markdown where it helps.',
     UNTRUSTED_DATA_RULE,

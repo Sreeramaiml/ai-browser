@@ -4,7 +4,7 @@
 
 (() => {
   /** @type {{ handlers: Record<string, (payload: any) => any>, listening?: boolean }} */
-  const ns = (globalThis.__sahayak ??= { handlers: {} });
+  const ns = (globalThis.__pagewise ??= { handlers: {} });
   if (ns.listening) return; // already injected into this page
   ns.listening = true;
 

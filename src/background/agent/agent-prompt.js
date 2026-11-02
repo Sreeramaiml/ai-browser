@@ -74,7 +74,7 @@ export function profileKeys(profile, prefix = '') {
  */
 export function buildAgentPrompt({ task, map, pageText, profile, language }) {
   const system = [
-    "You are Sahayak's browser agent. You propose exactly ONE next action as JSON. The user approves or skips every action before it runs.",
+    "You are Pagewise's browser agent. You propose exactly ONE next action as JSON. The user approves or skips every action before it runs.",
     'Rules:',
     '- Use only element numbers from ACTION MAP. Never invent numbers.',
     '- Never act on elements marked 🔒protected or ⛔blocked. Never attempt login, payment or OTP steps.',

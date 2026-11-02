@@ -7,11 +7,11 @@ Run this before every release and after any change to safety, the agent, or the 
 - Use a **fresh Chrome profile** with no other extensions. For a release, install from the release ZIP, following only the README.
 - Serve the practice site with `npx serve practice` (http://localhost:3000), or use the published one under `/practice/`.
 - Have a **Gemini key** ready, and a **Groq key** for section 2.
-- Keep the service worker's DevTools open (`chrome://extensions` → Sahayak → *service worker*) to watch requests and errors.
+- Keep the service worker's DevTools open (`chrome://extensions` → Pagewise → *service worker*) to watch requests and errors.
 - Test pages: a news article, a Wikipedia page, a Medium or blog post, an MDN docs page, a public YouTube video with chapters, and the practice site.
 - Mark each line ✅ or ❌ and note the Chrome version, the OS, and any failures.
 
-| Tester | Date | Chrome | OS | Sahayak version |
+| Tester | Date | Chrome | OS | Pagewise version |
 |---|---|---|---|---|
 | | | | | |
 
@@ -26,7 +26,7 @@ Run this before every release and after any change to safety, the agent, or the 
 
 ## 1. Read (Week 1)
 
-- [ ] Selected text is explained (Read tab, and right-click → **Sahayak → Explain this**).
+- [ ] Selected text is explained (Read tab, and right-click → **Pagewise → Explain this**).
 - [ ] An article is summarised as a TL;DR, five key points and next steps, on **three different sites**.
 - [ ] A public YouTube video is summarised, and its chapter timestamps jump the video.
 - [ ] **EN | Hinglish** switching works for all of the above. Hinglish is in Roman script, with no Devanagari.
@@ -105,7 +105,7 @@ Also check:
 
 ## 7. Definition of Done (final run)
 
-Use a **brand-new Chrome profile** on a machine, or user account, that has never had Sahayak. Install **only** from the public GitHub Release ZIP, following only the README.
+Use a **brand-new Chrome profile** on a machine, or user account, that has never had Pagewise. Install **only** from the public GitHub Release ZIP, following only the README.
 
 | # | DoD step | How to verify | Result |
 |---|---|---|---|

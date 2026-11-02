@@ -2,7 +2,7 @@
 (() => {
 // @ts-check
 // Protected-field detection and secret-value checks (architecture §14.4, edge cases §15.1, §26).
-// Sahayak never types into, or reads back, password, OTP or card fields.
+// Pagewise never types into, or reads back, password, OTP or card fields.
 //
 // Canonical source, imported by the service worker. It must stay import-free and end with a single
 // `export { … };` line: scripts/sync-classic.mjs turns it into the classic-script copy that content
@@ -153,5 +153,5 @@ function looksLikeSecretValue(value, ctx = {}) {
   return null;
 }
 
-(globalThis.__sahayakShared ??= {}).fieldRules = { classifyField, looksLikeSecretValue, luhnValid, verhoeffValid };
+(globalThis.__pagewiseShared ??= {}).fieldRules = { classifyField, looksLikeSecretValue, luhnValid, verhoeffValid };
 })();

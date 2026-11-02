@@ -9,8 +9,8 @@ describe('registerMenus', () => {
       create: (props) => { log.push(props); }
     });
     expect(log[0]).toBe('removeAll');
-    expect(log[1]).toMatchObject({ id: 'sahayak', contexts: ['selection'] });
-    expect(log.slice(2).map((p) => [p.id, p.parentId])).toEqual(MENU_ITEMS.map((m) => [m.id, 'sahayak']));
+    expect(log[1]).toMatchObject({ id: 'pagewise', contexts: ['selection'] });
+    expect(log.slice(2).map((p) => [p.id, p.parentId])).toEqual(MENU_ITEMS.map((m) => [m.id, 'pagewise']));
     expect(MENU_ITEMS.map((m) => m.title)).toEqual(['Explain this', 'Translate', 'Draft a reply']);
   });
 });
@@ -42,7 +42,7 @@ describe('menu click', () => {
 
   it('ignores the parent item and unknown ids', () => {
     const { handler, log } = setup();
-    handler({ menuItemId: 'sahayak', selectionText: 'x' }, tab);
+    handler({ menuItemId: 'pagewise', selectionText: 'x' }, tab);
     handler({ menuItemId: 'other', selectionText: 'x' }, tab);
     expect(log).toEqual([]);
   });

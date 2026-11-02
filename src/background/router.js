@@ -118,7 +118,7 @@ export function initRouter() {
         await handler(msg.payload, ctx, msg);
       } catch (err) {
         // Log the type only: payloads can contain API keys (EC-SET-13).
-        console.error('[Sahayak] handler failed', msg.type, err instanceof Error ? err.name : 'error');
+        console.error('[Pagewise] handler failed', msg.type, err instanceof Error ? err.name : 'error');
         post(port, makeMessage(ToPanel.ERROR, { code: 'INTERNAL', message: 'Something went wrong. Please try again.' }, msg.requestId));
       }
     });

@@ -2,7 +2,7 @@
 // YouTube helpers (classic script): video info for summaries, and seek-to-timestamp for chapter chips.
 
 (() => {
-  const ns = /** @type {any} */ (globalThis).__sahayak;
+  const ns = /** @type {any} */ (globalThis).__pagewise;
 
   /** The video ID of the page we're on, or null. Mirrors shared/youtube-url.js for the page's own URL. */
   function currentVideoId() {

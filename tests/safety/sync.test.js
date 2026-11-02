@@ -17,12 +17,12 @@ describe('classic copies of the safety rules (architecture §14.6)', () => {
       expect(read(to)).toBe(toClassic(read(from), ns, from));
     });
 
-    it(`${to} exposes the same functions on __sahayakShared.${ns}, and survives being injected twice`, () => {
+    it(`${to} exposes the same functions on __pagewiseShared.${ns}, and survives being injected twice`, () => {
       const sandbox = { globalThis: undefined };
       sandbox.globalThis = sandbox;
       runInNewContext(read(to), sandbox);
       runInNewContext(read(to), sandbox); // re-injection must not throw "already declared"
-      const exposed = sandbox.__sahayakShared[ns];
+      const exposed = sandbox.__pagewiseShared[ns];
       expect(Object.keys(exposed).sort()).toEqual(Object.keys(MODULES[ns]).sort());
     });
   }
@@ -31,7 +31,7 @@ describe('classic copies of the safety rules (architecture §14.6)', () => {
     const sandbox = {};
     sandbox.globalThis = sandbox;
     runInNewContext(read('src/content/generated/field-rules.classic.js'), sandbox);
-    const classic = sandbox.__sahayakShared.fieldRules;
+    const classic = sandbox.__pagewiseShared.fieldRules;
     for (const f of [{ type: 'password' }, { label: 'Enter OTP' }, { label: 'PIN code' }, { autocomplete: 'cc-number' }]) {
       expect(classic.classifyField(f)).toBe(fieldRules.classifyField(f));
     }

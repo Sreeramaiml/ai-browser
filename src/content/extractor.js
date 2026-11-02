@@ -4,7 +4,7 @@
 // signals the safety tiers use (CS_PAGE_SIGNALS, architecture §14.2).
 
 (() => {
-  const ns = /** @type {any} */ (globalThis).__sahayak;
+  const ns = /** @type {any} */ (globalThis).__pagewise;
   const MAX_SELECTION_CHARS = 20_000; // EC-SEL-06
   const CONTEXT_CHARS = 200;
   const TEXT_INPUT_TYPES = new Set(['text', 'search', 'url', 'email', 'tel', '']);
@@ -15,7 +15,7 @@
    * @param {HTMLInputElement|HTMLTextAreaElement} el
    */
   function isProtectedField(el) {
-    const rules = /** @type {any} */ (globalThis).__sahayakShared?.fieldRules;
+    const rules = /** @type {any} */ (globalThis).__pagewiseShared?.fieldRules;
     if (!rules) {
       // Rules missing (shouldn't happen): fail closed on the obvious cases.
       const autocomplete = (el.getAttribute('autocomplete') ?? '').toLowerCase();
@@ -199,7 +199,7 @@
   }
 
   function pageSignals() {
-    const rules = /** @type {any} */ (globalThis).__sahayakShared?.fieldRules;
+    const rules = /** @type {any} */ (globalThis).__pagewiseShared?.fieldRules;
     const signals = {
       hasPasswordField: false, hasCardFields: false, hasOtpField: false, hasUpiField: false,
       /** @type {string[]} */ keywords: [], /** @type {string[]} */ frameHosts: []

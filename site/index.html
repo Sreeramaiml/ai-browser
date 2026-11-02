@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sahayak: your helper in the browser</title>
+  <title>Pagewise: your helper in the browser</title>
   <meta name="description" content="A Chrome side-panel assistant that summarises, explains and answers from the page you're on, and acts on it only one approved step at a time. Free, private, open source.">
   <!-- The GitHub repository, as "user/repo". Left empty, it's worked out from the github.io address. -->
-  <meta name="sahayak-repo" content="">
+  <meta name="pagewise-repo" content="">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="icon-32.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
@@ -14,7 +14,7 @@
 <body>
   <header class="top">
     <div class="wrap top-row">
-      <a class="brand" href="./"><img src="icon-128.png" alt="" width="28" height="28"> Sahayak</a>
+      <a class="brand" href="./"><img src="icon-128.png" alt="" width="28" height="28"> Pagewise</a>
       <nav aria-label="Page">
         <a href="#features">Features</a>
         <a href="#safety">Safety</a>
@@ -28,9 +28,9 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <p class="eyebrow">सहायक · a helper in your browser</p>
+          <p class="eyebrow">An AI helper in Chrome's side panel</p>
           <h1>Understand any page. Act on it only when you say so.</h1>
-          <p class="lead">Sahayak lives in Chrome's side panel. It summarises articles and YouTube videos in English or Hinglish,
+          <p class="lead">Pagewise lives in Chrome's side panel. It summarises articles and YouTube videos in English or Hinglish,
             answers questions from the page itself, reads what's on your screen, and fills forms one step at a time,
             waiting for your <strong>Approve</strong> before every single action.</p>
           <div class="cta">
@@ -40,7 +40,7 @@
           <p class="fine">Free and open source. Runs on your own free Gemini key. No account, no server, no tracking.</p>
         </div>
         <figure class="demo shot" data-shot>
-          <img src="screenshots/demo.gif" alt="Sahayak summarising an article, then filling a practice form after each step is approved" loading="eager">
+          <img src="screenshots/demo.gif" alt="Pagewise summarising an article, then filling a practice form after each step is approved" loading="eager">
         </figure>
       </div>
     </section>
@@ -53,7 +53,7 @@
             <span class="card-icon" aria-hidden="true">📖</span>
             <h3>Read</h3>
             <p>A TL;DR, five key points and next steps for any article, and chapter-by-chapter notes for public YouTube videos.
-              Then ask follow-up questions: answers come only from the page, and Sahayak tells you when the page doesn't say.</p>
+              Then ask follow-up questions: answers come only from the page, and Pagewise tells you when the page doesn't say.</p>
             <p class="card-more">Right-click any selection to <em>Explain</em>, <em>Translate</em> or <em>Draft a reply</em>.</p>
           </article>
           <article class="card">
@@ -65,7 +65,7 @@
           <article class="card card-accent">
             <span class="card-icon" aria-hidden="true">✋</span>
             <h3>Act, with you in control</h3>
-            <p>Give it a task like "fill this application from my profile". Sahayak proposes one step at a time, shows the exact value
+            <p>Give it a task like "fill this application from my profile". Pagewise proposes one step at a time, shows the exact value
               and why, and waits. You <strong>Approve</strong>, <strong>Skip</strong> or <strong>Stop</strong>.</p>
             <p class="card-more">Submit, send and delete need a second confirmation. Every step is logged.</p>
           </article>
@@ -118,14 +118,14 @@
     <section id="safety" class="band">
       <div class="wrap">
         <h2>The safety promise</h2>
-        <p class="section-lead">These rules are built into Sahayak's code. They don't depend on the AI behaving.</p>
+        <p class="section-lead">These rules are built into Pagewise's code. They don't depend on the AI behaving.</p>
         <ul class="promises">
           <li><strong>Nothing happens without your Approve.</strong> One step at a time, and a second confirmation for anything that submits, sends or deletes.</li>
-          <li><strong>No banking, payments or UPI.</strong> Sahayak switches off completely on those pages, and there's no override. 🔴</li>
+          <li><strong>No banking, payments or UPI.</strong> Pagewise switches off completely on those pages, and there's no override. 🔴</li>
           <li><strong>Private pages stay private.</strong> Email, documents and messages are never read. You can still send text you select, after agreeing once per site. 🟡</li>
-          <li><strong>No passwords, OTPs or card numbers.</strong> Sahayak never types them and never presses pay, checkout or log in.</li>
+          <li><strong>No passwords, OTPs or card numbers.</strong> Pagewise never types them and never presses pay, checkout or log in.</li>
           <li><strong>Sensitive numbers are removed</strong> from everything sent to the AI: cards, Aadhaar, PAN, OTPs and UPI IDs.</li>
-          <li><strong>Your data stays on your computer.</strong> Key, profile, skills and logs live in Chrome's local storage. No Sahayak server, no analytics. One click deletes it all.</li>
+          <li><strong>Your data stays on your computer.</strong> Key, profile, skills and logs live in Chrome's local storage. No Pagewise server, no analytics. One click deletes it all.</li>
         </ul>
       </div>
     </section>
@@ -136,11 +136,11 @@
         <ol class="steps">
           <li>
             <h3>Download</h3>
-            <p>Get <code>sahayak-vX.Y.Z.zip</code> from the <a data-gh="releases/latest" href="#install">latest release</a>.</p>
+            <p>Get <code>pagewise-vX.Y.Z.zip</code> from the <a data-gh="releases/latest" href="#install">latest release</a>.</p>
           </li>
           <li>
             <h3>Unzip</h3>
-            <p>Into a folder you'll keep. Chrome loads Sahayak from it.</p>
+            <p>Into a folder you'll keep. Chrome loads Pagewise from it.</p>
           </li>
           <li>
             <h3>Developer mode</h3>
@@ -151,7 +151,7 @@
             <p>Click <strong>Load unpacked</strong> and choose the unzipped folder, the one with <code>manifest.json</code>.</p>
           </li>
         </ol>
-        <p class="after">Then click the Sahayak icon, open <strong>Settings</strong>, and paste a free key from
+        <p class="after">Then click the Pagewise icon, open <strong>Settings</strong>, and paste a free key from
           <a href="https://aistudio.google.com/apikey" rel="noopener noreferrer">Google AI Studio</a>. Needs Chrome 116 or later.
           The <a data-gh="#readme" href="#install">README</a> walks through the first run.</p>
       </div>
@@ -161,8 +161,8 @@
       <div class="wrap practice-row">
         <div>
           <h2>Try the agent safely</h2>
-          <p>The practice site has fake pages to try Sahayak's agent on: an internship application, a shop, a club directory,
-            and login, OTP, card and UPI pages that Sahayak must refuse. Nothing you type there goes anywhere.</p>
+          <p>The practice site has fake pages to try Pagewise's agent on: an internship application, a shop, a club directory,
+            and login, OTP, card and UPI pages that Pagewise must refuse. Nothing you type there goes anywhere.</p>
         </div>
         <a class="btn btn-primary" href="practice/">Open the practice site</a>
       </div>
@@ -171,17 +171,17 @@
 
   <footer class="foot">
     <div class="wrap foot-row">
-      <span>Sahayak is open source under the MIT license.</span>
+      <span>Pagewise is open source under the MIT license.</span>
       <span>This page has no trackers, cookies or analytics.</span>
       <a data-gh="" href="#install">Source on GitHub</a>
     </div>
   </footer>
 
   <script>
-    // GitHub links: from <meta name="sahayak-repo">, or worked out from this page's github.io address.
+    // GitHub links: from <meta name="pagewise-repo">, or worked out from this page's github.io address.
     // Elsewhere (a local preview), they stay pointed at the install section.
     (() => {
-      const meta = document.querySelector('meta[name="sahayak-repo"]')?.content.trim();
+      const meta = document.querySelector('meta[name="pagewise-repo"]')?.content.trim();
       let repo = meta || '';
       if (!repo && location.hostname.endsWith('.github.io')) {
         const user = location.hostname.split('.')[0];

@@ -27,7 +27,7 @@ export function notFoundSentence(language) {
 export function buildChatPrompt({ page, history, question, language }) {
   const notFound = notFoundSentence(language);
   const system = [
-    'You are Sahayak, a helpful assistant inside the user\'s browser. The user is chatting with you about the web page in <page_content>.',
+    'You are Pagewise, a helpful assistant inside the user\'s browser. The user is chatting with you about the web page in <page_content>.',
     'Answer ONLY from <page_content>. Never use outside knowledge, even if you are sure of the answer.',
     'Quote short phrases from the page in "double quotes", copied exactly as they appear on the page, to support your answer.',
     `If the page does not contain the answer, reply with exactly this sentence: "${notFound}" ` +

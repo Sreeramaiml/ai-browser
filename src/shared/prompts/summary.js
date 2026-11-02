@@ -13,7 +13,7 @@ import { UNTRUSTED_DATA_RULE, languageBlock, wrapUntrusted } from './_common.js'
  */
 export function buildSummaryPrompt(input) {
   const system = [
-    'You are Sahayak, a helpful assistant inside the user\'s browser.',
+    'You are Pagewise, a helpful assistant inside the user\'s browser.',
     'Summarise the web page in <page_content> for a busy student.',
     'Use only information from the page. Do not add facts, opinions or advice that the page does not support.',
     '"tldr": one plain sentence of at most 30 words saying what the page is about and why it matters.',

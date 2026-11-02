@@ -7,12 +7,12 @@ let ns;
 const layout = () => ({ left: 10, top: 10, width: 100, height: 20, right: 110, bottom: 30 });
 
 beforeAll(async () => {
-  globalThis.__sahayak = { handlers: {} };
+  globalThis.__pagewise = { handlers: {} };
   await import('../src/content/generated/field-rules.classic.js');
   await import('../src/content/generated/action-rules.classic.js');
   await import('../src/content/scanner.js');
   await import('../src/content/executor.js');
-  ns = globalThis.__sahayak;
+  ns = globalThis.__pagewise;
   Element.prototype.scrollIntoView ??= function scrollIntoView() {};
 });
 

@@ -398,7 +398,7 @@ export function mountChatView(root, { store, client, openSettings }) {
         await whenReady();
         await quickAction(req);
       })
-      .catch((err) => console.error('[Sahayak] quick action failed', err));
+      .catch((err) => console.error('[Pagewise] quick action failed', err));
     return quickQueue;
   }
 
@@ -455,7 +455,7 @@ export function mountChatView(root, { store, client, openSettings }) {
         await whenReady();
         await skillRun(skill);
       })
-      .catch((err) => console.error('[Sahayak] skill failed', err));
+      .catch((err) => console.error('[Pagewise] skill failed', err));
     return quickQueue;
   }
 

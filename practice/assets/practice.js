@@ -1,7 +1,7 @@
-// Sahayak practice site helpers. Values typed into the multi-step forms are kept in
+// Pagewise practice site helpers. Values typed into the multi-step forms are kept in
 // sessionStorage, so they survive moving between steps and vanish when the tab closes.
 (() => {
-  const KEY = 'sahayak-practice';
+  const KEY = 'pagewise-practice';
 
   /** @returns {Record<string, Record<string, string>>} */
   function readAll() {

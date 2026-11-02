@@ -91,7 +91,7 @@ describe('landing page (architecture §20.4)', () => {
   });
 
   it('works out the GitHub links from its github.io address when no repo is set', () => {
-    expect(site).toContain('<meta name="sahayak-repo" content="">');
+    expect(site).toContain('<meta name="pagewise-repo" content="">');
     expect(site).toContain("location.hostname.endsWith('.github.io')");
   });
 });

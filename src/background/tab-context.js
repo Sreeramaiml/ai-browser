@@ -23,7 +23,7 @@ const BROWSER_SCHEMES = new Set([
 const MAX_DATA_FAVICON_CHARS = 8_192; // EC-PNL-14
 
 /**
- * Decide whether Sahayak can read and act on a URL (EC-PNL-01..04, EC-PNL-10).
+ * Decide whether Pagewise can read and act on a URL (EC-PNL-01..04, EC-PNL-10).
  * @param {string|undefined|null} url
  * @param {{ fileAccessAllowed?: boolean }} [opts]
  * @returns {PageAccess}
@@ -151,7 +151,7 @@ export function waitForTabComplete(tabId, timeoutMs) {
 export async function ensureInjected(tabId, requiredHandlers) {
   const [probe] = await chrome.scripting.executeScript({
     target: { tabId },
-    func: () => Object.keys(/** @type {any} */ (globalThis).__sahayak?.handlers ?? {})
+    func: () => Object.keys(/** @type {any} */ (globalThis).__pagewise?.handlers ?? {})
   });
   const present = Array.isArray(probe?.result) ? probe.result : [];
   if (requiredHandlers.every((h) => present.includes(h))) return;
@@ -183,7 +183,7 @@ export async function sendToTab(tabId, type, payload) {
 export async function readPageText(tabId) {
   const tab = await chrome.tabs.get(tabId);
   if (describePageAccess(tab.url ?? tab.pendingUrl, { fileAccessAllowed: true }).restricted) {
-    throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't read this kind of page.");
+    throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't read this kind of page.");
   }
   const finished = await waitForTabComplete(tabId, 10_000);
   try {
@@ -191,7 +191,7 @@ export async function readPageText(tabId) {
     const page = await sendToTab(tabId, ToContent.CS_EXTRACT_ARTICLE);
     return { ...page, stillLoading: !finished };
   } catch {
-    throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't read this page.");
+    throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't read this page.");
   }
 }
 
@@ -205,7 +205,7 @@ export async function readSelection(tabId) {
   const tab = await chrome.tabs.get(tabId);
   // file:// is let through here; if access isn't granted, injection below fails and we report it.
   if (describePageAccess(tab.url ?? tab.pendingUrl, { fileAccessAllowed: true }).restricted) {
-    throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't read this kind of page.");
+    throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't read this kind of page.");
   }
   try {
     await ensureInjected(tabId, [ToContent.CS_GET_SELECTION]);
@@ -213,7 +213,7 @@ export async function readSelection(tabId) {
     return { ...sel, pageTitle: tab.title, url: tab.url };
   } catch {
     // Chrome refused to script the page (e.g. file:// without access, or a protected site).
-    throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't read this page.");
+    throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't read this page.");
   }
 }
 

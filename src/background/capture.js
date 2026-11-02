@@ -91,17 +91,17 @@ export function createScreenCapture({ capturer, getActiveTab, checkPage }) {
       // PDFs can't be read as text, but what's on screen can still be captured (EC-PNL-04).
       const access = describePageAccess(url, { fileAccessAllowed: true });
       if (access.restricted && access.reason !== 'pdf') {
-        throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't capture this kind of page."); // EC-SCR-02
+        throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't capture this kind of page."); // EC-SCR-02
       }
       const verdict = await checkPage({ tabId: tab.id, url, title });
       if (!verdict.allowed) throw new FeatureError('PAGE_BLOCKED', verdict.message);
 
-      // P3.3: hide Sahayak's own number badges before capturing, then restore them (EC-SCR-08).
+      // P3.3: hide Pagewise's own number badges before capturing, then restore them (EC-SCR-08).
       let dataUrl;
       try {
         dataUrl = await capturer.capture(tab.windowId ?? windowId);
       } catch (err) {
-        if (isNotAllowed(err)) throw new FeatureError('PAGE_RESTRICTED', "Sahayak can't capture this page.");
+        if (isNotAllowed(err)) throw new FeatureError('PAGE_RESTRICTED', "Pagewise can't capture this page.");
         throw new FeatureError('CAPTURE_FAILED', "Couldn't capture the screen. Please try again.");
       }
       return { dataUrl, tabId: tab.id, title, url };

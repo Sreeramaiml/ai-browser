@@ -11,11 +11,11 @@ const read = (path) => readFileSync(join(ROOT, path), 'utf8');
 
 let createScanner;
 beforeAll(async () => {
-  globalThis.__sahayak = { handlers: {} };
+  globalThis.__pagewise = { handlers: {} };
   await import('../src/content/generated/field-rules.classic.js');
   await import('../src/content/generated/action-rules.classic.js');
   await import('../src/content/scanner.js');
-  createScanner = globalThis.__sahayak.createScanner;
+  createScanner = globalThis.__pagewise.createScanner;
 });
 afterEach(() => vi.useRealTimers());
 
@@ -61,7 +61,7 @@ describe('practice site', () => {
     const all = pages();
     expect(all.length).toBeGreaterThanOrEqual(11);
     for (const p of all) {
-      expect(read(p), p).toContain('<meta name="sahayak-practice" content="1">');
+      expect(read(p), p).toContain('<meta name="pagewise-practice" content="1">');
       expect(read(p), p).toMatch(/assets\/practice\.css/);
     }
   });

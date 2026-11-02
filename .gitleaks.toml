@@ -1,6 +1,6 @@
 # gitleaks: CI scans the whole history on every push (.github/workflows/ci.yml), and the optional
 # pre-commit hook scans staged changes (scripts/hooks/pre-commit).
-title = "Sahayak"
+title = "Pagewise"
 
 [extend]
 useDefault = true

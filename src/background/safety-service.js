@@ -63,7 +63,7 @@ export function createSafetyService(storage) {
       if (!checked.ok) return invalid(checked.error);
       const { domain } = checked;
       if (list === 'ownedDomains') {
-        if (isFinancialHost(domain)) return invalid("Banking and payment sites can't be added. Sahayak never acts on them."); // EC-TIR-11
+        if (isFinancialHost(domain)) return invalid("Banking and payment sites can't be added. Pagewise never acts on them."); // EC-TIR-11
         if (isSensitiveHost(domain)) return invalid("Private sites like email, documents and messaging can't be added.");
         if (payload.confirmOwned !== true) return invalid('Tick "I own or control this site" to add it.'); // §14.3
       }

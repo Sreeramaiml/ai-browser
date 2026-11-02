@@ -143,7 +143,7 @@ describe('checkPage: which feature runs where', () => {
 
   it('explains every refusal in plain words', () => {
     expect(checkPage(tiers('https://hdfcbank.com/'), 'read', { url: '' }).message)
-      .toBe('Sahayak is switched off on payment and banking pages to keep your money safe.');
+      .toBe('Pagewise is switched off on payment and banking pages to keep your money safe.');
     expect(checkPage(tiers('https://mail.google.com/'), 'read', { url: '' }).message).toMatch(/private content.*right-click/);
     expect(checkPage(tiers('https://mail.google.com/'), 'agent', { url: '' }).message).toMatch(/agent doesn't run on private pages/);
     expect(checkPage(tiers('https://x.com/', NONE, ['x.com']), 'read', { url: '' }).message).toMatch(/Settings → Safety/);
@@ -157,7 +157,7 @@ describe('safetyBadge', () => {
     expect(safetyBadge(tiers('https://mail.google.com/')).level).toBe('sensitive');
     expect(safetyBadge(tiers('https://forum.example.com/', { ...NONE, hasPasswordField: true })).level).toBe('sensitive');
     expect(safetyBadge(tiers('https://onlinesbi.sbi/'))).toEqual({
-      level: 'blocked', label: 'Sahayak is switched off on payment and banking pages to keep your money safe.'
+      level: 'blocked', label: 'Pagewise is switched off on payment and banking pages to keep your money safe.'
     });
     expect(safetyBadge(tiers('https://shop.example.com/', { ...NONE, hasCardFields: true })).level).toBe('blocked');
   });

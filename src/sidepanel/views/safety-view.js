@@ -12,11 +12,11 @@ import { ToPanel, ToSW } from '../../shared/messages.js';
  */
 
 const TEMPLATE = /* html */ `
-    <p class="hint">Sahayak never works on banking and payment sites, and never types passwords, OTPs or card numbers.
+    <p class="hint">Pagewise never works on banking and payment sites, and never types passwords, OTPs or card numbers.
       Those rules are built in. The lists below are your own additions.</p>
 
     <h4>Blocked sites</h4>
-    <p class="field-hint">Sahayak is switched off completely on these sites and their subdomains.</p>
+    <p class="field-hint">Pagewise is switched off completely on these sites and their subdomains.</p>
     <ul class="domain-list" data-list="userBlockedDomains" aria-label="Blocked sites"></ul>
     <form class="domain-add" data-add="userBlockedDomains" novalidate>
       <input type="text" aria-label="Site to block" placeholder="example.com" autocomplete="off" spellcheck="false" />

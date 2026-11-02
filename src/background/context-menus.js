@@ -1,10 +1,10 @@
 // @ts-check
-// Right-click menu: Sahayak → Explain this / Translate / Draft a reply (architecture §10.2).
+// Right-click menu: Pagewise → Explain this / Translate / Draft a reply (architecture §10.2).
 // A click opens the panel and leaves the request in storage.session for it to run (§6.3).
 
 import { PENDING_KEY, QUICK_ACTION_KINDS, makePendingRequest } from '../shared/pending-request.js';
 
-const PARENT_ID = 'sahayak';
+const PARENT_ID = 'pagewise';
 export const MENU_ITEMS = Object.freeze([
   { id: 'explain', title: 'Explain this' },
   { id: 'translate', title: 'Translate' },
@@ -28,9 +28,9 @@ export async function registerMenus(menus) {
   // The callback reads lastError so a failure is logged by us, not reported as unchecked.
   const done = () => {
     const err = globalThis.chrome?.runtime?.lastError;
-    if (err) console.warn('[Sahayak] context menu', err.message);
+    if (err) console.warn('[Pagewise] context menu', err.message);
   };
-  menus.create({ id: PARENT_ID, title: 'Sahayak', contexts: ['selection'] }, done);
+  menus.create({ id: PARENT_ID, title: 'Pagewise', contexts: ['selection'] }, done);
   for (const item of MENU_ITEMS) {
     menus.create({ id: item.id, parentId: PARENT_ID, title: item.title, contexts: ['selection'] }, done);
   }
@@ -52,19 +52,19 @@ export function createMenuClickHandler({ openPanel, savePending, newId, now = Da
     // First, and synchronously: sidePanel.open() only works inside the user gesture (EC-CTX-01).
     if (tab) openPanel(tab);
     const req = makePendingRequest({ kind, info, tab, id: newId(), now: now() });
-    savePending(req).catch((err) => console.error('[Sahayak] could not hand the request to the panel', err));
+    savePending(req).catch((err) => console.error('[Pagewise] could not hand the request to the panel', err));
   };
 }
 
 /** Register menu listeners. Call synchronously at the worker's top level. */
 export function initContextMenus() {
   chrome.runtime.onInstalled.addListener(() => {
-    registerMenus(chrome.contextMenus).catch((err) => console.error('[Sahayak] context menus failed', err));
+    registerMenus(chrome.contextMenus).catch((err) => console.error('[Pagewise] context menus failed', err));
   });
 
   chrome.contextMenus.onClicked.addListener(createMenuClickHandler({
     openPanel: (tab) => {
-      chrome.sidePanel.open({ windowId: tab.windowId }).catch((err) => console.error('[Sahayak] sidePanel.open failed', err));
+      chrome.sidePanel.open({ windowId: tab.windowId }).catch((err) => console.error('[Pagewise] sidePanel.open failed', err));
     },
     // Replaces any earlier request, so two quick clicks run only the latest (EC-CTX-03).
     savePending: (req) => chrome.storage.session.set({ [PENDING_KEY]: req }),

@@ -1,8 +1,8 @@
 Problem Statement
 1. Project Overview
-Build Sahayak, a Chrome side-panel AI agent that can understand the page currently open in
+Build Pagewise, a Chrome side-panel AI agent that can understand the page currently open in
 the browser and help the user act on it safely.
-Sahayak should be able to:
+Pagewise should be able to:
 ● Summarise articles and public YouTube videos in English or Hinglish.
 ● Chat with the current web page and answer only from the page context.
 ● Explain, translate, or draft replies from selected page content.
@@ -22,26 +22,26 @@ are viewing, identify which field or button matters, and manually carry out ever
 More capable browser agents can automate these tasks, but they may be paid, unavailable to
 some users, or too autonomous for actions that involve personal information or consequential
 clicks.
-The goal of Sahayak is to create a user-controlled browser agent that combines understanding
+The goal of Pagewise is to create a user-controlled browser agent that combines understanding
 and action while keeping the user in charge.
-Sahayak must understand the current page, reason about visible and interactive content,
+Pagewise must understand the current page, reason about visible and interactive content,
 propose one action at a time, and wait for explicit approval before acting. It must also include
 privacy and safety restrictions so it does not operate on sensitive pages or enter protected
 information.
 3. Primary Goal
-At the end of four weeks, a user should be able to open Sahayak in the Chrome side panel on a
+At the end of four weeks, a user should be able to open Pagewise in the Chrome side panel on a
 supported page and do the following:
-1. Ask Sahayak to summarise the current article or a public YouTube link.
+1. Ask Pagewise to summarise the current article or a public YouTube link.
 2. Switch the response language between English and Hinglish.
 3. Ask follow-up questions about the page.
 4. Use quick actions such as Explain, Translate, and Draft a reply.
 5. Ask questions about visible non-text content using a screenshot.
-6. Give Sahayak a browser task such as filling a practice form or finding information.
+6. Give Pagewise a browser task such as filling a practice form or finding information.
 7. Review the next proposed action and choose Approve, Skip, or Stop.
-8. Let Sahayak perform only the approved browser action.
+8. Let Pagewise perform only the approved browser action.
 9. See a log of the actions that were proposed and performed.
 10. Reuse locally stored profile information and saved skills.
-Sahayak is not intended to be a fully autonomous browser bot. It is an agent the user controls.
+Pagewise is not intended to be a fully autonomous browser bot. It is an agent the user controls.
 4. Target Platform and Core Stack
 Browser
 ● Google Chrome on desktop.
@@ -66,7 +66,7 @@ Distribution
 5. Four-Week Build Plan
 Week 1 - The Eyes: Read the Web
 Objective
-Create the Chrome extension foundation and give Sahayak the ability to read and summarise
+Create the Chrome extension foundation and give Pagewise the ability to read and summarise
 web content.
 Required Features
 1. Chrome Extension Foundation
@@ -77,7 +77,7 @@ Create a Manifest V3 Chrome extension containing:
 ● Settings area for the user's Gemini API key.
 ● Ability to load the project through Chrome's Load unpacked flow.
 2. First AI Interaction
-The user should be able to select text on a page and ask Sahayak to explain it in plain language.
+The user should be able to select text on a page and ask Pagewise to explain it in plain language.
 The result should be displayed inside the side panel.
 3. Article Summarisation
 Use Readability.js to extract the useful article content while excluding navigation, advertisements,
@@ -87,7 +87,7 @@ Generate a structured summary containing:
 ● Five key points.
 ● What to do next.
 4. Public YouTube Summarisation
-For a supported public YouTube link, Sahayak should provide a useful structured summary.
+For a supported public YouTube link, Pagewise should provide a useful structured summary.
 Where supported, the result should include chapter-style notes with clickable timestamps that
 jump to the relevant moment.
 Private or unsupported YouTube content is outside the required scope.
@@ -126,7 +126,7 @@ Add Chrome context-menu actions for selected text:
 ● Translate - translate into Hindi or another selected language.
 ● Draft a reply - create a reply for content such as an email, LinkedIn post, or forum
 message.
-All results should open in or be sent to the Sahayak side panel.
+All results should open in or be sent to the Pagewise side panel.
 3. Screenshot-and-Ask
 Allow the user to capture the visible browser tab and ask a question about visual content such
 as:
@@ -138,7 +138,7 @@ as:
 The user should be able to focus the request on the relevant part of the screen before it is sent to
 the model.
 4. Free-Tier Resilience
-Sahayak must fail gracefully when model limits are reached.
+Pagewise must fail gracefully when model limits are reached.
 Required behaviour:
 ● Detect rate-limit responses such as HTTP 429.
 ● Wait and retry where appropriate.
@@ -155,7 +155,7 @@ Week 2 is complete when:
 ● Model errors and rate limits do not crash the extension.
 Week 3 - The Hands: Act With User Approval
 Objective
-Give Sahayak controlled computer-use capabilities without allowing it to act autonomously.
+Give Pagewise controlled computer-use capabilities without allowing it to act autonomously.
 Required Features
 1. Interactive Element Scanner
 Create a content script that scans the current page for interactive elements including:
@@ -174,7 +174,7 @@ over a concise action map instead of raw page HTML.
 3. Find It for Me
 Allow the user to ask a navigation question such as:
 Where do I upload my resume?
-Sahayak should identify the most relevant numbered element and highlight it without taking the
+Pagewise should identify the most relevant numbered element and highlight it without taking the
 action automatically.
 The model response for element selection should use strict structured JSON.
 4. Agent Loop
@@ -216,17 +216,17 @@ The agent should be capable of completing controlled practice tasks such as:
 Week 3 Acceptance Criteria
 Week 3 is complete when:
 ● Interactive elements are detected and numbered reliably on supported pages.
-● Sahayak can identify the correct element from a natural-language request.
+● Pagewise can identify the correct element from a natural-language request.
 ● The next action is returned in strict JSON.
 ● No browser action happens before user approval.
 ● Approve, Skip, Stop, step limit, and dry-run controls work.
 ● The agent survives normal service-worker sleep by saving progress.
 ● An action log is preserved for the task.
-● Sahayak can complete at least two supported practice errands with approval at every
+● Pagewise can complete at least two supported practice errands with approval at every
 step.
 Week 4 - Memory, Safety, and Shipping
 Objective
-Make Sahayak personal, reusable, safe, and installable by other users.
+Make Pagewise personal, reusable, safe, and installable by other users.
 Required Features
 1. Local Profile Memory
 Create a user profile stored only on the user's machine using chrome.storage.local.
@@ -250,7 +250,7 @@ Example skills from the cohort brief include:
 ● Fill this form from my profile.
 Skills should be exportable and importable as a small local file.
 3. Safety Rails
-Sahayak must include explicit safety restrictions.
+Pagewise must include explicit safety restrictions.
 Required rules:
 ● Block agent actions on banking, payment, and UPI pages.
 ● Never type into password fields.
@@ -265,7 +265,7 @@ Send.
 owns/controls.
 ● Do not automate logins, payments, or OTP workflows.
 4. Public Packaging
-Prepare Sahayak so another user can install and understand it.
+Prepare Pagewise so another user can install and understand it.
 Required outputs:
 ● Public GitHub repository.
 ● Clean README.
@@ -286,15 +286,15 @@ Week 4 is complete when:
 ● A simple public landing page exists.
 6. Functional Requirements
 FR-1: Side Panel
-Sahayak must run primarily inside the Chrome side panel and remain available while the user
+Pagewise must run primarily inside the Chrome side panel and remain available while the user
 works on the current page.
 FR-2: Settings
 The extension must provide a settings interface for API credentials and user preferences.
 FR-3: Content Extraction
-Sahayak must distinguish readable article content from page chrome and irrelevant layout
+Pagewise must distinguish readable article content from page chrome and irrelevant layout
 content.
 FR-4: Summarisation
-Sahayak must produce structured summaries and support English/Hinglish output.
+Pagewise must produce structured summaries and support English/Hinglish output.
 FR-5: Grounded Page Chat
 Page chat must use the current page as its source of truth and admit when the page does not
 contain the requested answer.
@@ -345,7 +345,7 @@ service.
 ● Chrome Web Store publication; a GitHub release installed through Load unpacked is
 sufficient for the core build.
 9. Definition of Done
-Sahayak is considered complete when a new user can install the extension from the project
+Pagewise is considered complete when a new user can install the extension from the project
 release, enter their own API key, open the side panel on a supported webpage, and successfully
 use the complete workflow below:
 1. Summarise an article or supported public YouTube link.
@@ -353,7 +353,7 @@ use the complete workflow below:
 3. Chat with the current page.
 4. Use Explain, Translate, or Draft a reply from selected text.
 5. Ask a question about visible screen content.
-6. Ask Sahayak to find a relevant interactive element.
+6. Ask Pagewise to find a relevant interactive element.
 7. Give the agent a supported browser task.
 8. Review and approve each proposed step.
 9. Stop or skip a step at any time.

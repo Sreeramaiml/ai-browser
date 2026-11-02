@@ -5,11 +5,11 @@ import { buildActionMap } from '../src/shared/action-map.js';
 let createScanner;
 
 beforeAll(async () => {
-  globalThis.__sahayak = { handlers: {} };
+  globalThis.__pagewise = { handlers: {} };
   await import('../src/content/generated/field-rules.classic.js');
   await import('../src/content/generated/action-rules.classic.js');
   await import('../src/content/scanner.js');
-  createScanner = globalThis.__sahayak.createScanner;
+  createScanner = globalThis.__pagewise.createScanner;
 });
 
 /** happy-dom has no layout: every element gets a box in the viewport unless data-rect says otherwise. */
@@ -32,7 +32,7 @@ const names = (r) => r.elements.map((d) => d.name);
 
 describe('scanner (architecture §11)', () => {
   it('registers the CS_SCAN handler', () => {
-    expect(typeof globalThis.__sahayak.handlers.CS_SCAN).toBe('function');
+    expect(typeof globalThis.__pagewise.handlers.CS_SCAN).toBe('function');
   });
 
   it('computes accessible names in the documented order (§11.2)', () => {
@@ -81,9 +81,9 @@ describe('scanner (architecture §11)', () => {
     expect(first.elements.map((d) => [d.id, d.name, d.fingerprint])).toEqual(second.elements.map((d) => [d.id, d.name, d.fingerprint]));
     expect(first.snapshotId).not.toBe(second.snapshotId);
     expect(names(first)).toEqual(['A', 'B', 'Save', 'Home']);
-    expect(document.querySelector('button').getAttribute('data-sahayak-id')).toBe('3');
+    expect(document.querySelector('button').getAttribute('data-pagewise-id')).toBe('3');
     scanner.clearMarks(); // EC-SCN-23
-    expect(document.querySelector('[data-sahayak-id]')).toBeNull();
+    expect(document.querySelector('[data-pagewise-id]')).toBeNull();
   });
 
   it('groups by form and names the form', () => {

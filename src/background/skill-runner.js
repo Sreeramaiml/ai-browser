@@ -87,7 +87,7 @@ export function createSkillRunner({
 
     if (needs.has('selection')) {
       const sel = await getSelection(tabId);
-      if (sel.protected) throw new FeatureError('PROTECTED_FIELD', 'Sahayak never reads password, OTP or card fields.');
+      if (sel.protected) throw new FeatureError('PROTECTED_FIELD', 'Pagewise never reads password, OTP or card fields.');
       out.selection = (sel.text ?? '').trim();
       if (!out.selection) throw new FeatureError('NO_SELECTION', 'Select some text first, then run this skill.'); // EC-SKL-01
     }

@@ -70,7 +70,7 @@ export function buildDraftPrompt(input) {
       : 'Sign off with the placeholder "[Your name]". Never invent a name.';
 
   const system = [
-    'You are Sahayak, a helpful assistant inside the user\'s browser.',
+    'You are Pagewise, a helpful assistant inside the user\'s browser.',
     'Draft a reply that the user can send to the message in <selection>. Write as the user, in the first person.',
     MEDIUM_RULES[input.medium] ?? MEDIUM_RULES.message,
     signature,

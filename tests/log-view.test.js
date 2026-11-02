@@ -18,7 +18,7 @@ const TASK = {
   log: [
     entry(),
     entry({ stepId: 'step-2', decision: 'skipped', outcome: 'n/a', action: { ...entry().action, type: 'click', target: 10, value: null, reason: 'Goes to step 3.' }, targetName: 'Next' }),
-    entry({ stepId: 'step-3', decision: 'blocked', outcome: 'n/a', error: 'Sahayak never types into password fields.', targetName: 'Password' })
+    entry({ stepId: 'step-3', decision: 'blocked', outcome: 'n/a', error: 'Pagewise never types into password fields.', targetName: 'Password' })
   ]
 };
 
@@ -28,7 +28,7 @@ describe('log text (P3.6)', () => {
     expect(actionText(entry({ action: { ...entry().action, type: 'scroll', target: null, value: null, direction: 'down' } }))).toBe('scroll down');
     expect(outcomeText(entry())).toBe('approved · ok');
     expect(outcomeText(TASK.log[1])).toBe('skipped');
-    expect(outcomeText(TASK.log[2])).toBe('blocked: Sahayak never types into password fields.');
+    expect(outcomeText(TASK.log[2])).toBe('blocked: Pagewise never types into password fields.');
   });
 });
 
@@ -36,10 +36,10 @@ describe('taskToMarkdown', () => {
   const md = taskToMarkdown(TASK);
 
   it('has every step with its reason, decision, model and page', () => {
-    expect(md).toContain('# Sahayak task: Fill the application | quickly');
+    expect(md).toContain('# Pagewise task: Fill the application | quickly');
     expect(md).toContain('| 1 | 2026-11-02T10:30:00.000Z | type [4] "College name" ← "IIT Hyderabad" | Fills the college field. | approved · ok | Gemini 3.5 Flash-Lite | localhost:3000/internship/ |');
     expect(md).toContain('| 2 |');
-    expect(md).toMatch(/\| 3 \| .* \| blocked: Sahayak never types into password fields\. \|/);
+    expect(md).toMatch(/\| 3 \| .* \| blocked: Pagewise never types into password fields\. \|/);
   });
 
   it('escapes pipes inside cells, and adds notes and the result', () => {

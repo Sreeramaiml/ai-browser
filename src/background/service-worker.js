@@ -25,10 +25,10 @@ import { initVision } from './vision.js';
 
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
-  .catch((err) => console.error('[Sahayak] setPanelBehavior failed', err));
+  .catch((err) => console.error('[Pagewise] setPanelBehavior failed', err));
 
 chrome.runtime.onInstalled.addListener((details) => {
-  console.log('[Sahayak] installed', { reason: details.reason, version: chrome.runtime.getManifest().version });
+  console.log('[Pagewise] installed', { reason: details.reason, version: chrome.runtime.getManifest().version });
 });
 
 const pageGuard = chromePageGuard();
@@ -59,7 +59,7 @@ async function pushActiveTab(windowId) {
   } catch (err) {
     // The window may have closed between the event and the query. Still answer, so the panel
     // knows the worker is alive and shows the "no page" state (EC-PNL-10).
-    console.debug('[Sahayak] active tab lookup failed', windowId, err);
+    console.debug('[Pagewise] active tab lookup failed', windowId, err);
     info = toActiveTabInfo(undefined, windowId);
   }
   sendToWindow(windowId, makeMessage(ToPanel.ACTIVE_TAB, info));
@@ -81,5 +81,5 @@ onPanelConnected(({ windowId, surface }) => {
 
 // EC-X-12: never leave a rejected promise unobserved.
 self.addEventListener('unhandledrejection', (event) => {
-  console.error('[Sahayak] unhandled rejection', event.reason);
+  console.error('[Pagewise] unhandled rejection', event.reason);
 });

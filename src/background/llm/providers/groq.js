@@ -209,7 +209,7 @@ export async function streamGroq(req, { apiKey, signal, onDelta, fetchImpl = fet
 }
 
 /**
- * "Test key" for Groq: GET /models (free). Also checks Sahayak's Groq model is still offered (EC-RTL-08).
+ * "Test key" for Groq: GET /models (free). Also checks Pagewise's Groq model is still offered (EC-RTL-08).
  * @param {string} key
  * @param {{ model: string, fetchImpl?: typeof fetch, timeoutMs?: number }} opts
  * @returns {Promise<import('../key-check.js').KeyCheckResult>}
@@ -225,7 +225,7 @@ export async function checkGroqKey(key, { model, fetchImpl = fetch, timeoutMs = 
       const ids = new Set(body.data.map((m) => String(m?.id ?? '')));
       return ids.has(model)
         ? { ok: true, message: '✓ Key works.' }
-        : { ok: true, message: '✓ Key works.', warning: `But Groq no longer offers ${model}, so the backup won't work. Sahayak's Groq model setting needs updating.` };
+        : { ok: true, message: '✓ Key works.', warning: `But Groq no longer offers ${model}, so the backup won't work. Pagewise's Groq model setting needs updating.` };
     }
     if (res.status === 401 || res.status === 403) {
       return { ok: false, code: 'AUTH_FAILED', message: 'Groq rejected this key. Check that you copied the whole key.' };

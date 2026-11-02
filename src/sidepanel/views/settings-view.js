@@ -55,19 +55,19 @@ const TEMPLATE = /* html */ `
   <div class="settings">
     <h2>Settings</h2>
     <p class="notice" data-ref="readonly" hidden>
-      This data was saved by a newer version of Sahayak, so settings can't be changed here. Update Sahayak to edit them.
+      This data was saved by a newer version of Pagewise, so settings can't be changed here. Update Pagewise to edit them.
     </p>
 ${keyCard({
     provider: 'gemini',
     heading: 'Gemini API key',
-    hint: "Sahayak uses your own free key from Google AI Studio. It's stored only on this device and sent only to Google. " +
+    hint: "Pagewise uses your own free key from Google AI Studio. It's stored only on this device and sent only to Google. " +
       `<a href="${GEMINI_KEY_URL}" target="_blank" rel="noopener noreferrer">Get a free key</a>`,
     placeholder: 'AQ.… or AIza…'
   })}
 ${keyCard({
     provider: 'groq',
     heading: 'Groq API key <span class="chip">Optional</span>',
-    hint: 'A free, text-only backup that Sahayak uses when Gemini is busy or out of quota. Screenshots and YouTube ' +
+    hint: 'A free, text-only backup that Pagewise uses when Gemini is busy or out of quota. Screenshots and YouTube ' +
       "still need Gemini. It's stored only on this device and sent only to Groq. " +
       `<a href="${GROQ_KEY_URL}" target="_blank" rel="noopener noreferrer">Get a free key</a>`,
     placeholder: 'gsk_…',
@@ -109,12 +109,12 @@ ${keyCard({
 
     <section class="card" aria-labelledby="data-heading">
       <h3 id="data-heading">Your data</h3>
-      <p class="hint">Everything Sahayak keeps stays on this device. There's no Sahayak server.</p>
+      <p class="hint">Everything Pagewise keeps stays on this device. There's no Pagewise server.</p>
       <div class="row">
         <button type="button" class="secondary danger" data-ref="clearAll" aria-expanded="false" aria-controls="clear-confirm">Clear all my data…</button>
       </div>
       <div class="confirm-box" id="clear-confirm" data-ref="clearConfirm" role="group" aria-labelledby="clear-title" hidden>
-        <p id="clear-title"><strong>Delete all your Sahayak data on this device?</strong></p>
+        <p id="clear-title"><strong>Delete all your Pagewise data on this device?</strong></p>
         <ul>
           <li>Your profile</li>
           <li>Saved skills</li>
