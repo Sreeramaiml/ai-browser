@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="sahayak-practice" content="1">
+  <title>Application submitted — Sahayak practice</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/practice.css">
+</head>
+<body>
+  <header class="site"><a href="../">← All practice tasks</a><span class="badge">practice</span></header>
+  <main>
+    <h1>Application submitted</h1>
+    <p class="lead">This is a practice page, so nothing was sent. Here is what the form received:</p>
+    <div class="panel">
+      <dl id="values"></dl>
+    </div>
+    <p class="row" style="margin-top: 1rem">
+      <a class="button secondary" href="./" id="again">Start a new application</a>
+    </p>
+  </main>
+  <script src="../assets/practice.js"></script>
+  <script>
+    (() => {
+      const LABELS = {
+        fullName: 'Full name', email: 'Email', phone: 'Phone number', college: 'College name', degree: 'Degree',
+        gradYear: 'Graduation year', enrolled: 'Currently enrolled', statement: 'Statement', resume: 'Resume file'
+      };
+      const values = window.practice.load('internship');
+      const list = document.getElementById('values');
+      for (const [key, label] of Object.entries(LABELS)) {
+        const dt = document.createElement('dt');
+        dt.textContent = label;
+        const dd = document.createElement('dd');
+        dd.textContent = values[key] || '—';
+        dd.dataset.field = key;
+        list.append(dt, dd);
+      }
+      document.getElementById('again').addEventListener('click', () => window.practice.clear('internship'));
+    })();
+  </script>
+</body>
+</html>

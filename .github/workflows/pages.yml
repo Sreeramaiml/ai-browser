@@ -1,0 +1,55 @@
+# GitHub Pages: the landing page (site/) at the root and the practice environment (practice/)
+# under /practice/ (architecture §18, §20.3). The agent's built-in allow-list points at that
+# /practice/ path (PRACTICE_SITE_URL in src/shared/config.js), so it must stay put (EC-REL-08).
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'practice/**', 'assets/icons/**', 'docs/screenshots/**', 'docs/demo.gif', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site/practice _site/screenshots
+          cp -R site/. _site/
+          cp -R practice/. _site/practice/
+          cp assets/icons/128.png _site/icon-128.png
+          cp assets/icons/32.png _site/icon-32.png
+          # The landing page shows the README's screenshots and demo (docs/screenshots/README.md).
+          # Any that haven't been captured yet are simply left out of the page.
+          cp docs/screenshots/*.png _site/screenshots/ 2>/dev/null || true
+          cp docs/demo.gif _site/screenshots/ 2>/dev/null || true
+          touch _site/.nojekyll
+          find _site -name '.DS_Store' -delete
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="sahayak-practice" content="1">
+  <title>Gadget Shop — Sahayak practice</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/practice.css">
+</head>
+<body>
+  <header class="site"><a href="../">← All practice tasks</a><span class="badge">practice</span></header>
+  <main>
+    <h1>Gadget Shop</h1>
+    <p class="lead">A pretend shop. Prices are in rupees and nothing can be bought.</p>
+
+    <!-- Not a <form>: searching and filtering change no data, so they aren't "submit" steps. -->
+    <div class="row" role="search" style="margin-bottom: 1rem">
+      <label style="flex: 1">Search products <input id="q" type="search" placeholder="e.g. wireless headphones"></label>
+      <button type="button" id="search">Search</button>
+    </div>
+
+    <div class="shop">
+      <aside class="panel" aria-label="Filters">
+        <fieldset>
+          <legend>Category</legend>
+          <label class="inline"><input type="checkbox" name="category" value="headphones"> Headphones</label>
+          <label class="inline"><input type="checkbox" name="category" value="speakers"> Speakers</label>
+          <label class="inline"><input type="checkbox" name="category" value="chargers"> Chargers</label>
+          <label class="inline"><input type="checkbox" name="category" value="smartwatches"> Smartwatches</label>
+        </fieldset>
+        <label>Price range
+          <select id="price">
+            <option value="">Any price</option>
+            <option value="0-999">Under ₹1,000</option>
+            <option value="0-2999">Under ₹3,000</option>
+            <option value="0-4999">Under ₹5,000</option>
+            <option value="5000-">₹5,000 and above</option>
+          </select>
+        </label>
+        <label>Sort by
+          <select id="sort">
+            <option value="relevance">Relevance</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="rating">Customer rating</option>
+          </select>
+        </label>
+        <button type="button" class="secondary" id="clear">Clear filters</button>
+      </aside>
+
+      <section aria-labelledby="results-title">
+        <h2 id="results-title" style="margin-top: 0">Results</h2>
+        <p id="status" aria-live="polite"></p>
+        <ul class="results" id="results"></ul>
+        <nav class="pager" aria-label="Result pages">
+          <button type="button" class="secondary" id="prev">Previous page</button>
+          <span id="page-info"></span>
+          <button type="button" class="secondary" id="next">Next page</button>
+        </nav>
+      </section>
+    </div>
+  </main>
+  <script src="shop.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="sahayak-practice" content="1">
+  <title>Internship Application — Sahayak practice</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/practice.css">
+</head>
+<body>
+  <header class="site"><a href="../">← All practice tasks</a><span class="badge">practice</span></header>
+  <main>
+    <h1>Summer Internship Application</h1>
+    <p class="lead">Three short steps. Nothing is sent anywhere: Submit shows what you entered.</p>
+    <ol class="steps" aria-label="Progress">
+      <li data-step="1">1. Personal details</li>
+      <li data-step="2">2. Education</li>
+      <li data-step="3">3. Statement and resume</li>
+    </ol>
+
+    <!-- Step 1 shows without JavaScript; the script picks the step from ?step= -->
+    <form id="step-1" data-step="1" aria-labelledby="step-1-title" novalidate>
+      <h2 id="step-1-title">Step 1 of 3: Personal details</h2>
+      <label>Full name <input name="fullName" autocomplete="name" required></label>
+      <label>Email <input name="email" type="email" autocomplete="email" required></label>
+      <label>Phone number <input name="phone" type="tel" autocomplete="tel" placeholder="+91 98765 43210"></label>
+      <p class="error" data-error hidden></p>
+      <div class="row"><button type="submit">Next</button></div>
+    </form>
+
+    <form id="step-2" data-step="2" aria-labelledby="step-2-title" novalidate hidden>
+      <h2 id="step-2-title">Step 2 of 3: Education</h2>
+      <label>College name <input name="college" autocomplete="organization" required></label>
+      <label>Degree
+        <select name="degree" required>
+          <option value="">Select</option>
+          <option>B.Tech</option>
+          <option>B.Sc</option>
+          <option>BCA</option>
+          <option>MCA</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label>Graduation year <input name="gradYear" type="number" min="2020" max="2032" step="1" required></label>
+      <label class="inline"><input name="enrolled" type="checkbox" value="yes"> I am currently enrolled</label>
+      <p class="error" data-error hidden></p>
+      <div class="row">
+        <a class="button secondary" href="?step=1">Back</a>
+        <button type="submit">Next</button>
+      </div>
+    </form>
+
+    <form id="step-3" data-step="3" aria-labelledby="step-3-title" novalidate hidden>
+      <h2 id="step-3-title">Step 3 of 3: Statement and resume</h2>
+      <label>Why do you want this internship? <textarea name="statement" required maxlength="2000"></textarea></label>
+      <label>Upload resume (PDF) <input name="resume" type="file" accept=".pdf,application/pdf" required></label>
+      <p class="error" data-error hidden></p>
+      <div class="row">
+        <a class="button secondary" href="?step=2">Back</a>
+        <button type="submit">Submit application</button>
+      </div>
+    </form>
+  </main>
+  <script src="../assets/practice.js"></script>
+  <script src="internship.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+# A tag like v1.0.0 (or v0.9.0-rc1 for a test): run the tests, build the ZIP, and publish a GitHub
+# Release with the ZIP attached and that version's CHANGELOG.md section as the notes (§20.3).
+# Nothing is published if any step fails (EC-REL-07).
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write # create the release
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generated safety rules are up to date
+        run: npm run sync -- --check
+
+      - name: Tests
+        run: npm test
+
+      - name: Safety suite
+        run: npm run test:safety
+
+      # Checks the tag against manifest.json and package.json, scans for keys, writes the ZIP.
+      - name: Build the ZIP
+        run: node scripts/package.mjs --tag "$GITHUB_REF_NAME"
+
+      - name: Release notes
+        run: node scripts/package.mjs --notes "$GITHUB_REF_NAME" > release-notes.md
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          flags=()
+          # v0.9.0-rc1 and the like are marked as pre-releases, so /releases/latest keeps pointing at a real one.
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then flags+=(--prerelease); fi
+          gh release create "$GITHUB_REF_NAME" "dist/sahayak-${GITHUB_REF_NAME}.zip" \
+            --title "Sahayak $GITHUB_REF_NAME" \
+            --notes-file release-notes.md \
+            --verify-tag \
+            "${flags[@]}"

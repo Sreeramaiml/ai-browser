@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sahayak</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <header class="context">
+        <span class="favicon-wrap" aria-hidden="true">
+          <img id="favicon" class="favicon" alt="" hidden />
+          <span id="favicon-fallback" class="favicon-fallback">🌐</span>
+        </span>
+        <div class="page">
+          <span id="page-title" class="page-title">Connecting…</span>
+          <span id="page-status" class="chip" hidden>Loading…</span>
+        </div>
+        <span id="safety-badge" class="safety-badge" role="img" hidden></span>
+        <div class="lang" role="group" aria-label="Response language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="hinglish" aria-pressed="false">Hinglish</button>
+        </div>
+        <button type="button" id="settings-btn" class="icon-btn" aria-label="Settings" title="Settings" aria-pressed="false">⚙</button>
+      </header>
+
+      <div id="conn-banner" class="banner" role="alert" hidden>
+        <p id="conn-banner-text"></p>
+        <div class="banner-actions">
+          <button type="button" id="conn-retry">Try again</button>
+          <button type="button" id="conn-open-extensions" class="secondary">Open extensions page</button>
+        </div>
+      </div>
+
+      <nav class="tabs" role="tablist" aria-label="Sahayak features">
+        <button type="button" role="tab" id="tab-read" data-view="read" aria-controls="view-read" title="Read">
+          <span class="tab-icon" aria-hidden="true">📖</span><span class="tab-label">Read</span>
+        </button>
+        <button type="button" role="tab" id="tab-chat" data-view="chat" aria-controls="view-chat" title="Chat">
+          <span class="tab-icon" aria-hidden="true">💬</span><span class="tab-label">Chat</span>
+        </button>
+        <button type="button" role="tab" id="tab-see" data-view="see" aria-controls="view-see" title="See">
+          <span class="tab-icon" aria-hidden="true">👁</span><span class="tab-label">See</span>
+        </button>
+        <button type="button" role="tab" id="tab-agent" data-view="agent" aria-controls="view-agent" title="Agent">
+          <span class="tab-icon" aria-hidden="true">🤖</span><span class="tab-label">Agent</span>
+        </button>
+        <button type="button" role="tab" id="tab-skills" data-view="skills" aria-controls="view-skills" title="Skills">
+          <span class="tab-icon" aria-hidden="true">⚡</span><span class="tab-label">Skills</span>
+        </button>
+      </nav>
+
+      <main>
+        <section id="view-read" class="view" role="tabpanel" aria-labelledby="tab-read" hidden>
+          <p class="empty">Loading…</p>
+        </section>
+        <section id="view-chat" class="view" role="tabpanel" aria-labelledby="tab-chat" hidden>
+          <p class="empty">Loading…</p>
+        </section>
+        <section id="view-see" class="view" role="tabpanel" aria-labelledby="tab-see" hidden>
+          <p class="empty">Loading…</p>
+        </section>
+        <section id="view-agent" class="view" role="tabpanel" aria-labelledby="tab-agent" hidden>
+          <p class="empty">Loading…</p>
+        </section>
+        <section id="view-skills" class="view" role="tabpanel" aria-labelledby="tab-skills" hidden>
+          <p class="empty">Loading skills…</p>
+        </section>
+        <section id="view-settings" class="view" aria-label="Settings" hidden>
+          <p class="empty">Loading settings…</p>
+        </section>
+
+        <section id="restricted" class="view" aria-live="polite" hidden>
+          <div class="empty">
+            <span class="restricted-icon" aria-hidden="true">🚫</span>
+            <h2 id="restricted-title"></h2>
+            <p id="restricted-detail"></p>
+            <button type="button" id="restricted-action" hidden></button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

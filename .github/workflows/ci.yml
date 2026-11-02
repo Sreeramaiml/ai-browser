@@ -1,0 +1,54 @@
+# Every push and pull request: tests (the safety suite on its own, so a failure there is easy to
+# spot), a secret scan of the whole history, and a dry run of the release ZIP (architecture §20.3).
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The committed classic copies of the safety rules must match their sources. `--check` fails
+      # instead of quietly regenerating them (which `npm test` would do).
+      - name: Generated safety rules are up to date
+        run: npm run sync -- --check
+
+      - name: Tests
+        run: npm test
+
+      # Fails if any safety test fails, or if one is skipped, focused or left as a todo (P4.3 step 10).
+      - name: Safety suite
+        run: npm run test:safety
+
+      - name: Release ZIP dry run
+        run: node scripts/package.mjs --check
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # the whole history: a key that was committed and then removed still counts (EC-REL-02)
+
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: .gitleaks.toml

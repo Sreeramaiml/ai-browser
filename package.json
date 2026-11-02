@@ -1,0 +1,26 @@
+{
+  "name": "sahayak",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome side-panel AI agent that reads, explains, sees, and acts with user approval.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-classic.mjs",
+    "pretest": "npm run sync",
+    "test": "vitest run",
+    "pretest:safety": "npm run sync",
+    "test:safety": "vitest run tests/safety tests/redact.test.js",
+    "test:watch": "vitest",
+    "package": "node scripts/package.mjs",
+    "hooks": "git config core.hooksPath scripts/hooks"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.3.5",
+    "happy-dom": "21.0.3",
+    "vitest": "5.0.5"
+  }
+}

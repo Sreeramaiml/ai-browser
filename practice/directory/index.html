@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="sahayak-practice" content="1">
+  <title>College Club Directory — Sahayak practice</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/practice.css">
+</head>
+<body>
+  <header class="site"><a href="../">← All practice tasks</a><span class="badge">practice</span></header>
+  <main>
+    <h1>College Club Directory</h1>
+    <p class="lead">Every student club, with its coordinator and contact email. The names and emails are made up.</p>
+    <table>
+      <caption class="visually-hidden">Clubs on this page</caption>
+      <thead><tr><th scope="col">Club</th><th scope="col">Coordinator</th><th scope="col">Email</th></tr></thead>
+      <tbody id="clubs"></tbody>
+    </table>
+    <nav class="pager" aria-label="Directory pages">
+      <a class="button secondary" id="prev" href="?page=1">Previous</a>
+      <span id="page-info"></span>
+      <a class="button secondary" id="next" href="?page=2">Next</a>
+    </nav>
+  </main>
+  <script src="directory.js"></script>
+</body>
+</html>

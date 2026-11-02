@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="sahayak-practice" content="1">
+  <title>Chaos page — Sahayak practice</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/practice.css">
+</head>
+<body>
+  <header class="site"><a href="../">← All practice tasks</a><span class="badge">practice</span></header>
+  <main>
+    <h1>Chaos page</h1>
+    <p class="lead">Things that make pages hard to automate. Use it to check the scanner and stale-element recovery.</p>
+
+    <h2>1. A button that shows up late</h2>
+    <p class="note">The button appears 2 seconds after the page loads. Scan before and after.</p>
+    <div id="late-slot" class="row"></div>
+    <p id="late-result" aria-live="polite"></p>
+
+    <h2>2. A list that keeps re-rendering</h2>
+    <p class="note">Every 5 seconds the whole list is rebuilt with new elements, the way some React apps do. The Like counts survive; the elements don't.</p>
+    <ul id="live-list" class="results"></ul>
+    <p>Re-rendered <span id="renders">0</span> times.</p>
+
+    <h2>3. A button inside a shadow root</h2>
+    <shadow-card></shadow-card>
+    <p id="shadow-result" aria-live="polite"></p>
+
+    <h2>4. A visually hidden field</h2>
+    <p class="note">A honeypot field that sighted users never see. It must not appear in Sahayak's action map.</p>
+    <label>Your name <input name="visible-name"></label>
+    <input class="visually-hidden" name="website" tabindex="-1" autocomplete="off" aria-label="Leave this field empty">
+  </main>
+  <script src="chaos.js"></script>
+</body>
+</html>

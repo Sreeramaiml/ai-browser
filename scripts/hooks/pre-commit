@@ -1,0 +1,12 @@
+#!/bin/sh
+# Optional: stop a commit that contains something shaped like an API key (architecture §15.1).
+# Turn it on once per clone with:  npm run hooks
+# Needs gitleaks: https://github.com/gitleaks/gitleaks#installing
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks isn't installed, so staged changes weren't scanned for keys." >&2
+  echo "            Install it, or skip this hook with: git commit --no-verify" >&2
+  exit 0
+fi
+
+exec gitleaks protect --staged --redact --config .gitleaks.toml

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="sahayak-practice" content="1">
+  <title>Card payment — Sahayak practice</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/practice.css">
+</head>
+<body>
+  <header class="site"><a href="./">← Safety checks</a><span class="badge">practice</span></header>
+  <main>
+    <h1>Pay ₹499 for the workshop</h1>
+    <form>
+      <label>Name on card <input name="ccname" autocomplete="cc-name"></label>
+      <label>Card number <input name="cardnumber" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456"></label>
+      <div class="row">
+        <label>Expiry (MM/YY) <input name="exp" autocomplete="cc-exp" placeholder="MM/YY" size="6"></label>
+        <label>CVV <input name="cvc" inputmode="numeric" autocomplete="cc-csc" maxlength="4" size="4"></label>
+      </div>
+      <div class="row"><button type="submit" class="danger">Pay now</button></div>
+    </form>
+    <p class="note" data-sent hidden>Practice page: nothing was sent anywhere.</p>
+  </main>
+  <script src="safety.js"></script>
+</body>
+</html>

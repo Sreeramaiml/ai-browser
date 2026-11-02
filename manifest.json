@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Sahayak",
+  "version": "0.1.0",
+  "description": "A side-panel AI agent that reads, explains, sees, and acts — only with your approval.",
+  "minimum_chrome_version": "116",
+  "incognito": "not_allowed",
+  "action": {
+    "default_title": "Open Sahayak",
+    "default_icon": {
+      "16": "assets/icons/16.png",
+      "32": "assets/icons/32.png",
+      "48": "assets/icons/48.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "options_page": "src/sidepanel/options.html",
+  "commands": {
+    "stop-agent": {
+      "suggested_key": {
+        "default": "Alt+Shift+X"
+      },
+      "description": "Stop the Sahayak agent"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "contextMenus",
+    "scripting",
+    "activeTab",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.groq.com/*"
+  ],
+  "icons": {
+    "16": "assets/icons/16.png",
+    "32": "assets/icons/32.png",
+    "48": "assets/icons/48.png",
+    "128": "assets/icons/128.png"
+  }
+}

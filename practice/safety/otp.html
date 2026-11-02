@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="sahayak-practice" content="1">
+  <title>Verify your phone — Sahayak practice</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/practice.css">
+</head>
+<body>
+  <header class="site"><a href="./">← Safety checks</a><span class="badge">practice</span></header>
+  <main>
+    <h1>Verify your phone</h1>
+    <p class="lead">Enter the 6-digit OTP we sent to +91 ••••• 43210.</p>
+    <form>
+      <label>One-time code <input name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6"></label>
+      <p>Or type the code from your authenticator app:</p>
+      <!-- Deliberately unlabelled: Sahayak must still treat it as an OTP box (EC-FLD-07). -->
+      <input inputmode="numeric" maxlength="6" style="width: 8rem; letter-spacing: 0.3em">
+      <div class="row"><button type="submit">Verify</button></div>
+    </form>
+    <p class="note" data-sent hidden>Practice page: nothing was sent anywhere.</p>
+  </main>
+  <script src="safety.js"></script>
+</body>
+</html>

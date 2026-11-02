@@ -1,0 +1,16 @@
+# gitleaks: CI scans the whole history on every push (.github/workflows/ci.yml), and the optional
+# pre-commit hook scans staged changes (scripts/hooks/pre-commit).
+title = "Sahayak"
+
+[extend]
+useDefault = true
+
+# Test fixtures never contain a real-looking key: they build one at runtime ('AIza' + 'x'.repeat(35)),
+# so nothing in the repo matches a key rule. If a fixture ever has to hold a literal fake key, allow
+# that exact value here (anchored, never a whole path), e.g.
+#   regexes = ['''^AIzaFAKE<the rest of the fake value>$''']
+# (EC-REL-01). A real key that slipped in must be rotated, never allow-listed (EC-REL-02).
+[allowlist]
+description = "Known fake test values, by exact value"
+regexTarget = "match"
+regexes = []

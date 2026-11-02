@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sahayak: your helper in the browser</title>
+  <meta name="description" content="A Chrome side-panel assistant that summarises, explains and answers from the page you're on, and acts on it only one approved step at a time. Free, private, open source.">
+  <!-- The GitHub repository, as "user/repo". Left empty, it's worked out from the github.io address. -->
+  <meta name="sahayak-repo" content="">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="icon-32.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="./"><img src="icon-128.png" alt="" width="28" height="28"> Sahayak</a>
+      <nav aria-label="Page">
+        <a href="#features">Features</a>
+        <a href="#safety">Safety</a>
+        <a href="#install">Install</a>
+        <a data-gh="" href="#install">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">सहायक · a helper in your browser</p>
+          <h1>Understand any page. Act on it only when you say so.</h1>
+          <p class="lead">Sahayak lives in Chrome's side panel. It summarises articles and YouTube videos in English or Hinglish,
+            answers questions from the page itself, reads what's on your screen, and fills forms one step at a time,
+            waiting for your <strong>Approve</strong> before every single action.</p>
+          <div class="cta">
+            <a class="btn btn-primary" data-gh="releases/latest" href="#install">Download latest release</a>
+            <a class="btn btn-ghost" href="practice/">Try the practice site</a>
+          </div>
+          <p class="fine">Free and open source. Runs on your own free Gemini key. No account, no server, no tracking.</p>
+        </div>
+        <figure class="demo shot" data-shot>
+          <img src="screenshots/demo.gif" alt="Sahayak summarising an article, then filling a practice form after each step is approved" loading="eager">
+        </figure>
+      </div>
+    </section>
+
+    <section id="features" class="band">
+      <div class="wrap">
+        <h2>Read · See · Act</h2>
+        <div class="cards">
+          <article class="card">
+            <span class="card-icon" aria-hidden="true">📖</span>
+            <h3>Read</h3>
+            <p>A TL;DR, five key points and next steps for any article, and chapter-by-chapter notes for public YouTube videos.
+              Then ask follow-up questions: answers come only from the page, and Sahayak tells you when the page doesn't say.</p>
+            <p class="card-more">Right-click any selection to <em>Explain</em>, <em>Translate</em> or <em>Draft a reply</em>.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" aria-hidden="true">🖼️</span>
+            <h3>See</h3>
+            <p>Charts, tables, diagrams, anything on screen. Capture it, crop to the part you mean, and ask.</p>
+            <p class="card-more"><em>Find it for me</em> points at the button or field you describe, without touching anything.</p>
+          </article>
+          <article class="card card-accent">
+            <span class="card-icon" aria-hidden="true">✋</span>
+            <h3>Act, with you in control</h3>
+            <p>Give it a task like "fill this application from my profile". Sahayak proposes one step at a time, shows the exact value
+              and why, and waits. You <strong>Approve</strong>, <strong>Skip</strong> or <strong>Stop</strong>.</p>
+            <p class="card-more">Submit, send and delete need a second confirmation. Every step is logged.</p>
+          </article>
+        </div>
+        <p class="also">Also: a local <strong>profile</strong> for forms and email sign-offs, one-click <strong>skills</strong> such as "Exam notes"
+          that you can share as a small file, and a free <strong>Groq</strong> backup for when Gemini's free tier is busy.</p>
+      </div>
+    </section>
+
+    <section class="gallery" data-gallery>
+      <div class="wrap">
+        <h2>See it in the side panel</h2>
+        <div class="shots">
+          <figure class="shot" data-shot>
+            <img src="screenshots/read-summary-hinglish.png" alt="An article summary card in Hinglish" decoding="async">
+            <figcaption>Summaries in English or Hinglish</figcaption>
+          </figure>
+          <figure class="shot" data-shot>
+            <img src="screenshots/chat-not-found.png" alt="Page chat saying the page doesn't cover a question" decoding="async">
+            <figcaption>Chat that sticks to the page</figcaption>
+          </figure>
+          <figure class="shot" data-shot>
+            <img src="screenshots/see-crop.png" alt="A cropped chart with a question and answer" decoding="async">
+            <figcaption>Ask about a cropped chart</figcaption>
+          </figure>
+          <figure class="shot" data-shot>
+            <img src="screenshots/agent-badges.png" alt="Numbered badges on a practice form" decoding="async">
+            <figcaption>Every button and field, numbered</figcaption>
+          </figure>
+          <figure class="shot" data-shot>
+            <img src="screenshots/agent-confirm.png" alt="An approval card asking to confirm Submit" decoding="async">
+            <figcaption>Nothing happens until you approve</figcaption>
+          </figure>
+          <figure class="shot" data-shot>
+            <img src="screenshots/agent-log.png" alt="The agent's step-by-step action log" decoding="async">
+            <figcaption>A log of every step and decision</figcaption>
+          </figure>
+          <figure class="shot" data-shot>
+            <img src="screenshots/skills-list.png" alt="The Skills tab with starter skills" decoding="async">
+            <figcaption>One-click skills</figcaption>
+          </figure>
+          <figure class="shot" data-shot>
+            <img src="screenshots/safety-blocked.png" alt="A red safety badge on a bank page" decoding="async">
+            <figcaption>Switched off on banking pages</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="safety" class="band">
+      <div class="wrap">
+        <h2>The safety promise</h2>
+        <p class="section-lead">These rules are built into Sahayak's code. They don't depend on the AI behaving.</p>
+        <ul class="promises">
+          <li><strong>Nothing happens without your Approve.</strong> One step at a time, and a second confirmation for anything that submits, sends or deletes.</li>
+          <li><strong>No banking, payments or UPI.</strong> Sahayak switches off completely on those pages, and there's no override. 🔴</li>
+          <li><strong>Private pages stay private.</strong> Email, documents and messages are never read. You can still send text you select, after agreeing once per site. 🟡</li>
+          <li><strong>No passwords, OTPs or card numbers.</strong> Sahayak never types them and never presses pay, checkout or log in.</li>
+          <li><strong>Sensitive numbers are removed</strong> from everything sent to the AI: cards, Aadhaar, PAN, OTPs and UPI IDs.</li>
+          <li><strong>Your data stays on your computer.</strong> Key, profile, skills and logs live in Chrome's local storage. No Sahayak server, no analytics. One click deletes it all.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="install">
+      <div class="wrap">
+        <h2>Install in four steps</h2>
+        <ol class="steps">
+          <li>
+            <h3>Download</h3>
+            <p>Get <code>sahayak-vX.Y.Z.zip</code> from the <a data-gh="releases/latest" href="#install">latest release</a>.</p>
+          </li>
+          <li>
+            <h3>Unzip</h3>
+            <p>Into a folder you'll keep. Chrome loads Sahayak from it.</p>
+          </li>
+          <li>
+            <h3>Developer mode</h3>
+            <p>Open <code>chrome://extensions</code> and switch on <strong>Developer mode</strong>, top right.</p>
+          </li>
+          <li>
+            <h3>Load unpacked</h3>
+            <p>Click <strong>Load unpacked</strong> and choose the unzipped folder, the one with <code>manifest.json</code>.</p>
+          </li>
+        </ol>
+        <p class="after">Then click the Sahayak icon, open <strong>Settings</strong>, and paste a free key from
+          <a href="https://aistudio.google.com/apikey" rel="noopener noreferrer">Google AI Studio</a>. Needs Chrome 116 or later.
+          The <a data-gh="#readme" href="#install">README</a> walks through the first run.</p>
+      </div>
+    </section>
+
+    <section class="band practice">
+      <div class="wrap practice-row">
+        <div>
+          <h2>Try the agent safely</h2>
+          <p>The practice site has fake pages to try Sahayak's agent on: an internship application, a shop, a club directory,
+            and login, OTP, card and UPI pages that Sahayak must refuse. Nothing you type there goes anywhere.</p>
+        </div>
+        <a class="btn btn-primary" href="practice/">Open the practice site</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-row">
+      <span>Sahayak is open source under the MIT license.</span>
+      <span>This page has no trackers, cookies or analytics.</span>
+      <a data-gh="" href="#install">Source on GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    // GitHub links: from <meta name="sahayak-repo">, or worked out from this page's github.io address.
+    // Elsewhere (a local preview), they stay pointed at the install section.
+    (() => {
+      const meta = document.querySelector('meta[name="sahayak-repo"]')?.content.trim();
+      let repo = meta || '';
+      if (!repo && location.hostname.endsWith('.github.io')) {
+        const user = location.hostname.split('.')[0];
+        const first = location.pathname.split('/').filter(Boolean)[0];
+        repo = `${user}/${first || location.hostname}`;
+      }
+      if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) return;
+      for (const a of document.querySelectorAll('a[data-gh]')) {
+        const path = a.dataset.gh;
+        a.href = `https://github.com/${repo}${path ? (path.startsWith('#') ? path : `/${path}`) : ''}`;
+      }
+    })();
+
+    // Screenshots not captured yet are left out, and the gallery too if none are there.
+    (() => {
+      const gallery = document.querySelector('[data-gallery]');
+      const drop = (img) => {
+        img.closest('[data-shot]')?.remove();
+        if (gallery && !gallery.querySelector('[data-shot]')) gallery.hidden = true;
+      };
+      // The images load eagerly (there are only a few), so a missing one fails before anyone scrolls
+      // to it. It may even have failed before this ran: hence the check as well as the listener.
+      for (const img of document.querySelectorAll('[data-shot] img')) {
+        if (img.complete && img.naturalWidth === 0) drop(img);
+        else img.addEventListener('error', () => drop(img), { once: true });
+      }
+    })();
+  </script>
+</body>
+</html>
